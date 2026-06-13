@@ -1,0 +1,11 @@
+requests
+pandas
+numpy
+scikit-learn
+fastapi
+uvicorn
+tenacity
+python-dotenv
+python-dateutil
+anthropic
+pydantic

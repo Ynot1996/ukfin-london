@@ -1,0 +1,1412 @@
+{
+  "generated_at": "2026-06-13T17:34:23.867637+00:00",
+  "data_source": "CFPB Consumer Complaint Database",
+  "adjudicator": "score",
+  "weights": {
+    "frequency": 0.25,
+    "severity": 0.3,
+    "growth": 0.2,
+    "regulatory_relevance": 0.15,
+    "ai_confidence": 0.1
+  },
+  "kpis": {
+    "active_clusters": 21,
+    "critical_clusters": 1,
+    "escalating_clusters": 4,
+    "ai_cases": 170,
+    "total_cases_in_clusters": 170,
+    "total_fetched": 14014,
+    "match_rate": 1.21
+  },
+  "clusters": [
+    {
+      "id": "CL-007",
+      "name": "Cards & Payments — Closed, Citi, Paid — Closing your account",
+      "category": "Cards & Payments",
+      "cases": 29,
+      "companies": [
+        "CITIBANK, N.A.",
+        "SYNCHRONY FINANCIAL",
+        "CAPITAL ONE FINANCIAL CORPORATION"
+      ],
+      "ai_confidence": 65,
+      "growth_7d": 200.0,
+      "first_seen": "2026-04-01T02:10:41",
+      "last_activity": "2026-05-22T00:26:22",
+      "daily_counts": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "sample_narratives": [
+        "I am filing a complaint against Capital One for improperly denying my dispute for a charge of {$3300.00} for goods that I never received. \n\nThis transaction was part of an XXXX XXXX XXXX order ( Order # XXXX ), totaling {$4600.00}. The rema",
+        "XXXX XXXX CONSUMER FINANCIAL PROTECTION BUREAU ( CFPB ) COMPLAINT CITIBANK - IMPROPER ACCOUNT CLOSURE & PAYMENT PROCESSING FAILURES COMPLAINANT INFORMATION Name : XXXX XXXX Account Type : XXXX Citi Card Date of Complaint : XX/XX/year> COMPA",
+        "On XX/XX/XXXX, I paid {$3500.00} of my {$4000.00} credit limit in an attempt to improve my credit score/lower my balance due, out of my checking account. The amount was immediately removed from my checking account and reflected as a payment"
+      ],
+      "matched_signals": [
+        "action_without_notice",
+        "auto_adverse_action",
+        "loop_runaround",
+        "no_explanation",
+        "no_human"
+      ],
+      "matched_keywords": [
+        "artificial intelligence",
+        "automated loop",
+        "automated system",
+        "glitch"
+      ],
+      "severity": 0.93,
+      "severity_band": "CRITICAL",
+      "regulatory_relevance": 0.75,
+      "status": "ESCALATING",
+      "priority": 0.9065,
+      "rank": 1,
+      "priority_pct": 100
+    },
+    {
+      "id": "CL-019",
+      "name": "Payments & Crypto — Transaction, Wells, Send — Fraud or scam",
+      "category": "Payments & Crypto",
+      "cases": 4,
+      "companies": [
+        "WELLS FARGO & COMPANY",
+        "Early Warning Services, LLC",
+        "BANK OF AMERICA, NATIONAL ASSOCIATION"
+      ],
+      "ai_confidence": 50,
+      "growth_7d": 200.0,
+      "first_seen": "2026-04-12T21:02:16",
+      "last_activity": "2026-05-18T18:32:01",
+      "daily_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sample_narratives": [
+        "I was involved in a XXXX marketplace transaction on XXXX/26 where the person purchasing from me offered to send me {$170.00} to hold the item. She sent me the money via Zelle. I receive an email saying because it was from a business account",
+        "Complaint Against : Bank of America Product : Checking Account ( XXXX ) and Credit Card Dispute Handling Summary of Complaint I am submitting this complaint regarding Bank of Americas handling of disputes involving ( 1 ) XXXX transfers conn",
+        "On Tuesday XX/XX/year> a fraudulent transaction ( seemingly done as a wire transfer ) was made on my savings account with Wells Fargo for {$4900.00}. It was a transaction made to a company named XXXX XXXX that was taken out of my account. I"
+      ],
+      "matched_signals": [
+        "no_explanation",
+        "no_human"
+      ],
+      "matched_keywords": [],
+      "severity": 0.532,
+      "severity_band": "MEDIUM",
+      "regulatory_relevance": 0.85,
+      "status": "ESCALATING",
+      "priority": 0.5716,
+      "rank": 2,
+      "priority_pct": 63
+    },
+    {
+      "id": "CL-001",
+      "name": "Banking — Check, Funds, Balance — Managing an account",
+      "category": "Banking",
+      "cases": 24,
+      "companies": [
+        "TRUIST FINANCIAL CORPORATION",
+        "CITIBANK, N.A.",
+        "BANK OF AMERICA, NATIONAL ASSOCIATION"
+      ],
+      "ai_confidence": 67,
+      "growth_7d": -66.7,
+      "first_seen": "2026-04-01T22:38:04",
+      "last_activity": "2026-05-21T13:34:05",
+      "daily_counts": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "sample_narratives": [
+        "Dear Consumer Financial Protection Bureau, I am writing to urgently request your intervention in a deeply distressing and unjust situation involving my financial institutions. Without warning, explanation, or due process, my accounts were r",
+        "Merrill account locked without explanation ; funds inaccessible for urgent obligations Complaint : On XX/XX/year>, I discovered that my account with Merrill Lynch had been locked. I immediately contacted customer service but was not provide",
+        "On XX/XX/XXXX, a {$6300.00} XXXX XXXX transaction was processed from my account that I did not authorize. \n\nThis transaction appears on my XX/XX/XXXX statement ( covering JXXXX XXXX XXXX, XXXX ). I reported the unauthorized transaction XXXX"
+      ],
+      "matched_signals": [
+        "action_without_notice",
+        "loop_runaround",
+        "no_explanation",
+        "no_human"
+      ],
+      "matched_keywords": [
+        "algorithm",
+        "artificial intelligence",
+        "automated system",
+        "chatbot",
+        "glitch"
+      ],
+      "severity": 0.624,
+      "severity_band": "HIGH",
+      "regulatory_relevance": 0.7,
+      "status": "PERSISTENT",
+      "priority": 0.5661,
+      "rank": 3,
+      "priority_pct": 62
+    },
+    {
+      "id": "CL-016",
+      "name": "Payments & Crypto — Error, Transfer, Verification — Fraud or scam",
+      "category": "Payments & Crypto",
+      "cases": 9,
+      "companies": [
+        "Block, Inc.",
+        "Coinbase, Inc.",
+        "JPMORGAN CHASE & CO."
+      ],
+      "ai_confidence": 70,
+      "growth_7d": 100.0,
+      "first_seen": "2026-04-01T05:43:19",
+      "last_activity": "2026-05-15T12:57:30",
+      "daily_counts": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sample_narratives": [
+        "This is a follow up to my previous CFPB complaint case number XXXX. After filing that complaint my account restriction was lifted. However every time I attempt to transfer my cryptocurrency assets valued at approximately {$65000.00} Coinbas",
+        "Reviewing my Chase checking account statement and balances as usual recently ( XX/XX/year> ), I noticed XXXX transfers OUT of ( debiting ) my account that I had not authorized. The names of the payees were completely unfamiliar to me and un",
+        "So upon using cash app which I have had this account for quite some time matter of years long story short is back in XXXX somebody somehow got a hold of my cash-up account and information and basically took over my account and fraudulently "
+      ],
+      "matched_signals": [
+        "loop_runaround",
+        "no_explanation",
+        "no_human"
+      ],
+      "matched_keywords": [
+        "automated system",
+        "chatbot",
+        "computer error",
+        "glitch"
+      ],
+      "severity": 0.507,
+      "severity_band": "MEDIUM",
+      "regulatory_relevance": 0.85,
+      "status": "ESCALATING",
+      "priority": 0.5272,
+      "rank": 4,
+      "priority_pct": 58
+    },
+    {
+      "id": "CL-002",
+      "name": "Banking — Wells, Fargo, Wells Fargo — Managing an account",
+      "category": "Banking",
+      "cases": 18,
+      "companies": [
+        "WELLS FARGO & COMPANY",
+        "SOFI TECHNOLOGIES, INC.",
+        "Paypal Holdings, Inc"
+      ],
+      "ai_confidence": 67,
+      "growth_7d": 0.0,
+      "first_seen": "2026-04-01T15:17:49",
+      "last_activity": "2026-05-22T12:39:24",
+      "daily_counts": [
+        2,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "sample_narratives": [
+        "I find it absolutely deplorable that XXXX  has my money inaccessible and tells me that the automated system is flagging my transactions but my account isnt locked or restricted. Of my account isnt locked or restricted I should be able to ac",
+        "Wells Fargo has decided to close my account because we use XXXX too many times. They dont publish a limit and my wife was using it together money for a destination wedding, and all they said is that its being used too much for a personal ac",
+        "b\"Wells Fargo just sent me a response and every time they send me a response I get the equivalent of what was actually there for I'm not there to say whether they're wrong or right but their judgment is based on the information that was giv"
+      ],
+      "matched_signals": [
+        "auto_adverse_action",
+        "loop_runaround",
+        "no_explanation",
+        "no_human"
+      ],
+      "matched_keywords": [
+        "algorithm",
+        "automated loop",
+        "automated system",
+        "glitch"
+      ],
+      "severity": 0.485,
+      "severity_band": "MEDIUM",
+      "regulatory_relevance": 0.7,
+      "status": "PERSISTENT",
+      "priority": 0.4727,
+      "rank": 5,
+      "priority_pct": 52
+    },
+    {
+      "id": "CL-006",
+      "name": "Cards & Payments — Closure, Accounts, Closed — Closing your account",
+      "category": "Cards & Payments",
+      "cases": 15,
+      "companies": [
+        "SYNCHRONY FINANCIAL",
+        "CAPITAL ONE FINANCIAL CORPORATION",
+        "CITIBANK, N.A."
+      ],
+      "ai_confidence": 57,
+      "growth_7d": -100.0,
+      "first_seen": "2026-04-02T04:52:30",
+      "last_activity": "2026-05-11T15:06:42",
+      "daily_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sample_narratives": [
+        "CFPB Complaint Statement Issue : Credit card account closed without explanation ; inconsistent account handling ; receiving statements/refunds after closure.\n\nComplaint : I am filing a complaint regarding the unexplained closure of my XXXX ",
+        "I earned {$26.00} in rewards ( Sezzle Spend ) which have a cash value on the platform. Sezzle 's management ( XXXX XXXX ) provided written instructions on how to redeem these funds. However, Sezzle 's automated system is blocking the redemp",
+        "In XXXX, Citicards abruptly closed all my XXXX open Credit Card accounts without providing a clear explanation. \nCiti suggested I apply for a new card, as they were unable to reopen any of the closed accounts, which conflicted with what a C"
+      ],
+      "matched_signals": [
+        "action_without_notice",
+        "no_explanation",
+        "no_human"
+      ],
+      "matched_keywords": [
+        "algorithm",
+        "automated system",
+        "glitch"
+      ],
+      "severity": 0.495,
+      "severity_band": "MEDIUM",
+      "regulatory_relevance": 0.75,
+      "status": "PERSISTENT",
+      "priority": 0.4473,
+      "rank": 6,
+      "priority_pct": 49
+    },
+    {
+      "id": "CL-003",
+      "name": "Cards & Payments — America, Charges, Error — Problem with a purchase shown on your statement",
+      "category": "Cards & Payments",
+      "cases": 14,
+      "companies": [
+        "U.S. BANCORP",
+        "BANK OF AMERICA, NATIONAL ASSOCIATION",
+        "GOLDMAN SACHS BANK USA"
+      ],
+      "ai_confidence": 70,
+      "growth_7d": -100.0,
+      "first_seen": "2026-04-01T15:26:39",
+      "last_activity": "2026-05-14T03:43:18",
+      "daily_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sample_narratives": [
+        "I am filing this complaint because Apple Card has repeatedly failed to properly investigate and resolve a dispute involving defective merchandise purchased through XXXX XXXX on XX/XX/year> ( XXXX XXXX XXXX XXXX ). I am extremely dissatisfie",
+        "On XX/XX/year>, my XXXX SkyMiles Platinum American Express credit card account was charged an annual membership fee of {$300.00}. I did not cancel the account. On XX/XX/year>, when I accessed my American Express app, I noticed that my card ",
+        "I am filing this complaint to report gross security negligence and repeated violations of the Fair Credit Billing Act ( XXXX ) by Goldman Sachs Bank USA. The banks failure to secure my account after a reported theft in XXXX allowed over {$1"
+      ],
+      "matched_signals": [
+        "auto_adverse_action",
+        "no_explanation",
+        "no_human"
+      ],
+      "matched_keywords": [
+        "algorithm",
+        "automated system",
+        "chatbot",
+        "glitch"
+      ],
+      "severity": 0.442,
+      "severity_band": "MEDIUM",
+      "regulatory_relevance": 0.75,
+      "status": "PERSISTENT",
+      "priority": 0.4358,
+      "rank": 7,
+      "priority_pct": 48
+    },
+    {
+      "id": "CL-015",
+      "name": "Mortgages — Late, Freedom, Late Fees — Trouble during payment process",
+      "category": "Mortgages",
+      "cases": 3,
+      "companies": [
+        "Freedom Mortgage Company",
+        "MIDFIRST BANK"
+      ],
+      "ai_confidence": 60,
+      "growth_7d": 100.0,
+      "first_seen": "2026-04-01T13:43:36",
+      "last_activity": "2026-05-19T17:56:11",
+      "daily_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "sample_narratives": [
+        "My lender set up my autopay to withdraw on a XXXX schedule in XXXX. Several years ago ( at least as of XX/XX/XXXX ) I noticed late fees on my mortgage statements. I called initially and was told it was a clerical issue, that the statements ",
+        "Did a XXXXefi w/Freedom Mortgage. 1st payment was due XX/XX/XXXX. Was making my payments online before refi. Have not been able to access my mortgage account online since refi, repeated calls to Freedom have not resolved this. Decided to ma",
+        "In XXXX, representatives from XXXX XXXX explicitly instructed the borrower not to submit the regular monthly mortgage payments for XXXX and XXXX, citing an administrative account transition. Following these exact corporate instructions, the"
+      ],
+      "matched_signals": [],
+      "matched_keywords": [
+        "automated system",
+        "glitch"
+      ],
+      "severity": 0.281,
+      "severity_band": "LOW",
+      "regulatory_relevance": 0.95,
+      "status": "ESCALATING",
+      "priority": 0.4127,
+      "rank": 8,
+      "priority_pct": 46
+    },
+    {
+      "id": "CL-017",
+      "name": "Payments & Crypto — Paypal, Merchant, Fraud — Unauthorized transactions or other transaction problem",
+      "category": "Payments & Crypto",
+      "cases": 7,
+      "companies": [
+        "Paypal Holdings, Inc",
+        "Remitly, Inc."
+      ],
+      "ai_confidence": 67,
+      "growth_7d": 0.0,
+      "first_seen": "2026-04-07T19:46:29",
+      "last_activity": "2026-04-13T21:39:38",
+      "daily_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sample_narratives": [
+        "am filing this complaint against PayPal for failing to protect my funds and for allowing a merchant ( XXXX XXXX XXXX XXXX XXXX ) to engage in deceptive, retaliatory practices. \n1. Induced Destruction of Evidence : The merchants support proc",
+        "Company : Venmo ( XXXX XXXX XXXX ) Consumer Product : Checking account or digital wallet Issue : Problem with a purchase shown on your statement / Fraud or scam Case Reference : XXXX XXXXXXXX Transaction Date : XX/XX/year> Amount : {$27.00}",
+        "I am XXXX XXXX XXXX and am filing this complaint to resolve a permanent identity limitation ( Ref XXXX : XXXX and XXXX ). I recently confirmed via PayPal 's automated system that my account history spans over 7 years, placing the account cr"
+      ],
+      "matched_signals": [
+        "no_explanation",
+        "no_human"
+      ],
+      "matched_keywords": [
+        "automated decision",
+        "automated loop",
+        "automated system",
+        "glitch"
+      ],
+      "severity": 0.352,
+      "severity_band": "MEDIUM",
+      "regulatory_relevance": 0.85,
+      "status": "STABLE",
+      "priority": 0.3604,
+      "rank": 9,
+      "priority_pct": 40
+    },
+    {
+      "id": "CL-008",
+      "name": "Consumer Credit — Problem when making payments",
+      "category": "Consumer Credit",
+      "cases": 6,
+      "companies": [
+        "CITIBANK, N.A.",
+        "PatientFi, Inc.",
+        "Klarna AB"
+      ],
+      "ai_confidence": 62,
+      "growth_7d": -100.0,
+      "first_seen": "2026-04-01T15:51:39",
+      "last_activity": "2026-05-14T01:25:23",
+      "daily_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sample_narratives": [
+        "I entered into a deferred interest financing agreement with PatientFi in connection with a service provided through XXXX. \n\nWhile a promotional expiration date was disclosed at the outset, it was not reasonably accessible or visible through",
+        "Complaint Against Klarna Unauthorized Charge for Service Not Received On XX/XX/year>, I attempted to purchase two airline tickets through XXXX using Klarna as the payment method. The total cost of the tickets was {$820.00}. Klarna initiated",
+        "Wells Fargo personal loan initiated in XX/XX/XXXX. I paid it consistently - XXXX XXXX monthly via Bank XXXX XXXX XXXX XXXX with no problems until XX/XX/XXXX. ( And why is it Wells Fargo system only accepts XXXX XXXX XXXX XXXXXXXX XXXX check"
+      ],
+      "matched_signals": [
+        "loop_runaround",
+        "no_explanation",
+        "no_human"
+      ],
+      "matched_keywords": [
+        "chatbot",
+        "glitch"
+      ],
+      "severity": 0.33,
+      "severity_band": "LOW",
+      "regulatory_relevance": 0.85,
+      "status": "PERSISTENT",
+      "priority": 0.3402,
+      "rank": 10,
+      "priority_pct": 38
+    },
+    {
+      "id": "CL-004",
+      "name": "Cards & Payments — Citibank, Phone, Chat — Other features, terms, or problems",
+      "category": "Cards & Payments",
+      "cases": 7,
+      "companies": [
+        "CITIBANK, N.A.",
+        "BANK OF AMERICA, NATIONAL ASSOCIATION",
+        "AMERICAN EXPRESS COMPANY"
+      ],
+      "ai_confidence": 67,
+      "growth_7d": 0.0,
+      "first_seen": "2026-04-01T21:19:55",
+      "last_activity": "2026-05-17T18:36:50",
+      "daily_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sample_narratives": [
+        "Received notification payment due soon XXXX and paid on XXXX. After that next notification payment due XXXX, attempted to make payment on or around XXXX on mobile app ( as I've always made payments previously ) but was redirected to reset m",
+        "I am a longtime Citi AAdvantage Mastercard customer with an account open for more than 10 years. On XX/XX/XXXX, I submitted an online request through Citibank 's official customer portal for copies of my account statements for XX/XX/XXXX an",
+        "I opened a Citibank AA credit card on XX/XX/year> the offer was XXXX bonus miles upon spending {$5000.00}. I noticed that the points were not pending on my account and I reached out via chat to try to find out about the missing Rewards mile"
+      ],
+      "matched_signals": [
+        "no_explanation"
+      ],
+      "matched_keywords": [
+        "algorithm",
+        "automated system",
+        "chatbot",
+        "glitch"
+      ],
+      "severity": 0.285,
+      "severity_band": "LOW",
+      "regulatory_relevance": 0.75,
+      "status": "PERSISTENT",
+      "priority": 0.3253,
+      "rank": 11,
+      "priority_pct": 36
+    },
+    {
+      "id": "CL-011",
+      "name": "Mortgages — Escrow, Mortgage, Home — Trouble during payment process",
+      "category": "Mortgages",
+      "cases": 7,
+      "companies": [
+        "Rocket Mortgage, LLC",
+        "CrossCountry Mortgage LLC",
+        "Selene Holdings LLC"
+      ],
+      "ai_confidence": 60,
+      "growth_7d": -100.0,
+      "first_seen": "2026-04-01T08:16:52",
+      "last_activity": "2026-05-11T17:42:31",
+      "daily_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sample_narratives": [
+        "On Monday, XX/XX/XXXX I emailed the Loan Servicing Dept at CrossCountry Mortgage, after having called them multiple times and left messages during the prior XXXX weeks, and attempted to reach out to an agent via their chatbot on their websi",
+        "Attempted XXXX  log into online portal and was denied access do XXXX  loan status. My last log in attempt was XXXX  days ago and I was allowed to navigate the site but was not able to make online payments. I currently do not receive any of ",
+        "MY XXXX  XXXX  I closed on the purchased our current home on XX/XX/XXXX. Sometime later our mortgage was taken over by Rocket Mortgage XXXX  the escrow arrangement included insurance and property taxes. Our payments ( after a refinance with"
+      ],
+      "matched_signals": [],
+      "matched_keywords": [
+        "automated system",
+        "chatbot",
+        "glitch"
+      ],
+      "severity": 0.204,
+      "severity_band": "LOW",
+      "regulatory_relevance": 0.95,
+      "status": "PERSISTENT",
+      "priority": 0.324,
+      "rank": 12,
+      "priority_pct": 36
+    },
+    {
+      "id": "CL-005",
+      "name": "Cards & Payments — Fargo, Wells, Wells Fargo — Closing your account",
+      "category": "Cards & Payments",
+      "cases": 4,
+      "companies": [
+        "WELLS FARGO & COMPANY"
+      ],
+      "ai_confidence": 68,
+      "growth_7d": 0.0,
+      "first_seen": "2026-04-07T17:05:25",
+      "last_activity": "2026-04-28T01:36:17",
+      "daily_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sample_narratives": [
+        "To Whom It May Concern, I am writing to formally file a complaint regarding a misapplied payment and the lack of resolution despite multiple attempts to address this matter. \n\nMy account associated with the XXXXWells Fargo partnership was c",
+        "This is a non-duplicate complaint. \n\n\n1. Nature of the Complaint I am filing this complaint regarding the egregious and evasive customer service practices of Wells Fargo Bank, N.A., specifically its Executive Complaints Management Office ( ",
+        "I informed Wells Fargo that my credit card is expired and they never sent me a renewed XXXX credit card. Well Fargo stated they sent the card and I never received it. Well Fargo customer service cancelled my credit card and reported the car"
+      ],
+      "matched_signals": [
+        "no_explanation",
+        "no_human"
+      ],
+      "matched_keywords": [
+        "automated system",
+        "glitch"
+      ],
+      "severity": 0.318,
+      "severity_band": "LOW",
+      "regulatory_relevance": 0.75,
+      "status": "STABLE",
+      "priority": 0.3104,
+      "rank": 13,
+      "priority_pct": 34
+    },
+    {
+      "id": "CL-000",
+      "name": "Auto Lending — Managing the loan or lease",
+      "category": "Auto Lending",
+      "cases": 6,
+      "companies": [
+        "Westlake Services, LLC",
+        "CAPITAL ONE FINANCIAL CORPORATION",
+        "FLAGSHIP FINANCIAL GROUP LLC"
+      ],
+      "ai_confidence": 64,
+      "growth_7d": -100.0,
+      "first_seen": "2026-04-07T07:57:29",
+      "last_activity": "2026-05-13T16:15:03",
+      "daily_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sample_narratives": [
+        "On these dates XX/XX/XXXX XX/XX/XXXX XX/XX/XXXX XX/XX/XXXX I see inquiries from Westlake that I didnt authorize them to do. I contacted them on XX/XX/XXXX but it was all automated system. I need these inquiries removed because I didnt autho",
+        "I am submitting this complaint regarding the reporting of late payments on my Capital One Auto Loan account, which was never late during the life of the loan. \n\nAccount Information : Account Name : CAPITAL ONE AUTO Account Number : XXXX Acc",
+        "I am filing a complaint regarding the repossession of a vehicle belonging to my child and the conduct of both the lender and the repossession company involved. \nIn the days leading up to the repossession, my child reported being followed an"
+      ],
+      "matched_signals": [
+        "no_human"
+      ],
+      "matched_keywords": [
+        "automated system",
+        "glitch"
+      ],
+      "severity": 0.267,
+      "severity_band": "LOW",
+      "regulatory_relevance": 0.65,
+      "status": "PERSISTENT",
+      "priority": 0.2933,
+      "rank": 14,
+      "priority_pct": 32
+    },
+    {
+      "id": "CL-018",
+      "name": "Payments & Crypto — Check, Mail, Xxxxxxxx — Fraud or scam",
+      "category": "Payments & Crypto",
+      "cases": 3,
+      "companies": [
+        "HUNTINGTON NATIONAL BANK, THE",
+        "Certegy Holdings, LLC",
+        "Atlanticus Services Corporation"
+      ],
+      "ai_confidence": 68,
+      "growth_7d": 0.0,
+      "first_seen": "2026-04-06T15:55:11",
+      "last_activity": "2026-04-29T01:05:37",
+      "daily_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sample_narratives": [
+        "I've contacted the bank several times about {$100000.00} the was never successfully delivered that the same bank teller who cashed the check tried to deliver back to me outside of banking hours which is fishy. How this money got outside of ",
+        "When attempting to cash a check with Certegy, i was offered both over-the-phone and mailed reasoning for a declined check or flag when trying to request both, i was told i could not have that report over the phone after giving my personal i",
+        "I submitted a claim with complaint ID XXXX against XXXX XXXX XXXX XXXXXXXX, XXXX XX/XX/XXXX. I closed this account on XX/XX/XXXX. Then received a letter via email & mail stating that a credit balance of {$2000.00} had been posted to my acco"
+      ],
+      "matched_signals": [
+        "no_human"
+      ],
+      "matched_keywords": [
+        "automated system"
+      ],
+      "severity": 0.239,
+      "severity_band": "LOW",
+      "regulatory_relevance": 0.85,
+      "status": "STABLE",
+      "priority": 0.2931,
+      "rank": 15,
+      "priority_pct": 32
+    },
+    {
+      "id": "CL-012",
+      "name": "Mortgages — Payoff, Lien, Release — Trouble during payment process",
+      "category": "Mortgages",
+      "cases": 2,
+      "companies": [
+        "Shellpoint Partners, LLC",
+        "Rocket Mortgage, LLC"
+      ],
+      "ai_confidence": 60,
+      "growth_7d": 0.0,
+      "first_seen": "2026-04-06T16:27:13",
+      "last_activity": "2026-04-24T01:21:30",
+      "daily_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sample_narratives": [
+        "In XX/XX/XXXX, NewRez LLC / Shellpoint Mortgage Servicing issued a payoff statement for my HELOC that included all required fees ( {$83.00} ). Based on this payoff quote, XXXX XXXX XXXX XXXX paid the loan in full so they could assume second",
+        "XXXX XXXX XXXX XXXX ( I originally closed my loan with XXXX  XXXX Home Loans ) serviced my loan until I refinanced on XX/XX/XXXX. I am now trying to refinance again and when my title company pulled a XXXX history the release of XXXX by XXXX"
+      ],
+      "matched_signals": [],
+      "matched_keywords": [
+        "automated system"
+      ],
+      "severity": 0.144,
+      "severity_band": "LOW",
+      "regulatory_relevance": 0.95,
+      "status": "STABLE",
+      "priority": 0.2629,
+      "rank": 16,
+      "priority_pct": 29
+    },
+    {
+      "id": "CL-013",
+      "name": "Mortgages — Numbers, Contact, Customer — Trouble during payment process",
+      "category": "Mortgages",
+      "cases": 2,
+      "companies": [
+        "Rocket Mortgage, LLC",
+        "Shellpoint Partners, LLC"
+      ],
+      "ai_confidence": 60,
+      "growth_7d": 0.0,
+      "first_seen": "2026-04-06T13:35:51",
+      "last_activity": "2026-05-04T14:42:46",
+      "daily_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sample_narratives": [
+        "XX/XX/2026 I am not able to log on to my account to access my tax documents. I successfully reset my password, but the system still will not let me in. Chat is not available, the toll-free numbers give me XXXX un-useful options ( all direct",
+        "I have contacted Newrez in an effort to remove PMI, or begin the process of doing so, trying to understand what is needed, as of early XXXX. A notice was sent to me XX/XX/year> acknowledging the request but no further documentation was done"
+      ],
+      "matched_signals": [],
+      "matched_keywords": [
+        "automated system"
+      ],
+      "severity": 0.144,
+      "severity_band": "LOW",
+      "regulatory_relevance": 0.95,
+      "status": "STABLE",
+      "priority": 0.2629,
+      "rank": 17,
+      "priority_pct": 29
+    },
+    {
+      "id": "CL-014",
+      "name": "Mortgages — Requested, Sale, Documentation — Struggling to pay mortgage",
+      "category": "Mortgages",
+      "cases": 2,
+      "companies": [
+        "TRUIST FINANCIAL CORPORATION",
+        "Shellpoint Partners, LLC"
+      ],
+      "ai_confidence": 60,
+      "growth_7d": 0.0,
+      "first_seen": "2026-04-02T17:06:21",
+      "last_activity": "2026-05-05T13:50:33",
+      "daily_counts": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sample_narratives": [
+        "I have been attempting to resolve an issue with my mortgage for several weeks and have been unable to get Truist to communicate with me despite repeated efforts. Following the death of the borrower, my husband, ownership of the property was",
+        "I was actively working with Shellpoint mortgage servicing for weeks trying to obtain a loan modification .. My wife and I submitted every document and letter of explanation requested .. My point of contact XXXX XXXX stated my file was compl"
+      ],
+      "matched_signals": [],
+      "matched_keywords": [
+        "automated system"
+      ],
+      "severity": 0.144,
+      "severity_band": "LOW",
+      "regulatory_relevance": 0.95,
+      "status": "STABLE",
+      "priority": 0.2629,
+      "rank": 18,
+      "priority_pct": 29
+    },
+    {
+      "id": "CL-009",
+      "name": "Credit Reporting — Incorrect information on your report",
+      "category": "Credit Reporting",
+      "cases": 3,
+      "companies": [
+        "Experian Information Solutions Inc.",
+        "WELLS FARGO & COMPANY",
+        "Harris & Harris, Ltd."
+      ],
+      "ai_confidence": 57,
+      "growth_7d": 0.0,
+      "first_seen": "2026-04-07T20:12:56",
+      "last_activity": "2026-05-05T10:30:04",
+      "daily_counts": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sample_narratives": [
+        "Your choices dont match my complaint. This is about the credit reporting company, not about misinformation received by it. \n\nYesterday and today XX/XX/year> I tried to delete/close my account with Experian. After signing in and following al",
+        "My vehicle financed through Wells Fargo Auto was declared a total loss on or around [ XX/XX/year> ], and my insurance company is currently processing the claim and payoff. \n\nDespite this, I was charged for a payment and Wells Fargo reported",
+        "XXXX XXXX XXXX XXXX XXXX | XXXX, FL XXXX | | XX/XX/XXXX VIA CFPB CONSUMER COMPLAINT PORTAL CONSTITUTING LEGALLY OPERATIVE, GOVERNMENT-TIMESTAMPED NOTICE TO ALL NAMED PARTIES PRIMARY ADDRESSEE : Consumer Financial Protection Bureau 1700 G St"
+      ],
+      "matched_signals": [
+        "no_human"
+      ],
+      "matched_keywords": [
+        "chatbot"
+      ],
+      "severity": 0.217,
+      "severity_band": "LOW",
+      "regulatory_relevance": 0.6,
+      "status": "STABLE",
+      "priority": 0.238,
+      "rank": 19,
+      "priority_pct": 26
+    },
+    {
+      "id": "CL-010",
+      "name": "Debt Collection — Attempts to collect debt not owed",
+      "category": "Debt Collection",
+      "cases": 3,
+      "companies": [
+        "TRANSUNION INTERMEDIATE HOLDINGS, INC.",
+        "TRANSWORLD SYSTEMS INC"
+      ],
+      "ai_confidence": 60,
+      "growth_7d": 0.0,
+      "first_seen": "2026-04-05T15:57:06",
+      "last_activity": "2026-05-05T19:45:16",
+      "daily_counts": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sample_narratives": [
+        "Formal DisputeCollection Accounts ; Validation and Verification Demands ; Reinsertion Violation To Whom It May Concern, I'm writing to formally dispute and demand full validation for the collection accounts listed below that appear on my cr",
+        "AGGRAVATED VIOLATIONS OF FDCPA ( 15 U.S.C. 1692 ), TCPA ( 47 U.S.C. 227 ), AND XXXXXXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX, XXXX XXXX XXXX, am a victim of Identity Theft ( 16 C.F.R. 603.2 ). I am disputing Account # XXXX. Transworld Sy",
+        "METHOD OF VERIFICATION REQUEST ( FCRA 611 ( a ) ( 6 ) ) XXXX XXXX XXXX XXXX. \nXXXX ( Last XXXX ) : XXXX XXXX : XX/XX/XXXX XXXX, XXXX  TransUnion LLC XXXX. XXXX XXXX XXXX, XXXX  XXXX Re : Method of Verification Request Account in Question : "
+      ],
+      "matched_signals": [],
+      "matched_keywords": [
+        "automated decision",
+        "automated system"
+      ],
+      "severity": 0.156,
+      "severity_band": "LOW",
+      "regulatory_relevance": 0.7,
+      "status": "STABLE",
+      "priority": 0.2377,
+      "rank": 20,
+      "priority_pct": 26
+    },
+    {
+      "id": "CL-020",
+      "name": "Student Lending — Dealing with your lender or servicer",
+      "category": "Student Lending",
+      "cases": 2,
+      "companies": [
+        "Central Research Inc",
+        "Maximus Federal Services, Inc."
+      ],
+      "ai_confidence": 60,
+      "growth_7d": 0.0,
+      "first_seen": "2026-04-02T14:58:47",
+      "last_activity": "2026-04-13T14:36:10",
+      "daily_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sample_narratives": [
+        "I am submitting this formal complaint regarding my federal student loan serviced by CRI. My account experienced unauthorized changes that have caused financial harm. Around XX/XX/2026, my repayment plan was changed without my authorization ",
+        "I have student loans with Aidvantage. I went to school for XXXX XXXX XXXX XXXX at XXXX XXXX XXXX. I was on track to XXXX  until the school closed before i could enter my last quarter of my \" senior '' year. They offered teach out programs b"
+      ],
+      "matched_signals": [],
+      "matched_keywords": [
+        "automated system",
+        "glitch"
+      ],
+      "severity": 0.144,
+      "severity_band": "LOW",
+      "regulatory_relevance": 0.7,
+      "status": "STABLE",
+      "priority": 0.2254,
+      "rank": 21,
+      "priority_pct": 25
+    }
+  ],
+  "alerts": [
+    {
+      "timestamp": "2026-05-22T12:39:24",
+      "time": "12:39",
+      "severity": "MEDIUM",
+      "type": "SIMMERING",
+      "message": "PERSISTENT: Banking — Wells, Fargo, Wells Fargo — Managing an account active and entrenched",
+      "cluster_id": "CL-002"
+    },
+    {
+      "timestamp": "2026-05-22T00:26:22",
+      "time": "00:26",
+      "severity": "CRITICAL",
+      "type": "SPIKE",
+      "message": "CRITICAL SPIKE: +200% case volume in 7 days — Cards & Payments — Closed, Citi, Paid — Closing your account",
+      "cluster_id": "CL-007"
+    },
+    {
+      "timestamp": "2026-05-21T13:34:05",
+      "time": "13:34",
+      "severity": "HIGH",
+      "type": "SIMMERING",
+      "message": "PERSISTENT: Banking — Check, Funds, Balance — Managing an account active and entrenched",
+      "cluster_id": "CL-001"
+    },
+    {
+      "timestamp": "2026-05-19T17:56:11",
+      "time": "17:56",
+      "severity": "CRITICAL",
+      "type": "SPIKE",
+      "message": "CRITICAL SPIKE: +100% case volume in 7 days — Mortgages — Late, Freedom, Late Fees — Trouble during payment process",
+      "cluster_id": "CL-015"
+    },
+    {
+      "timestamp": "2026-05-18T18:32:01",
+      "time": "18:32",
+      "severity": "CRITICAL",
+      "type": "SPIKE",
+      "message": "CRITICAL SPIKE: +200% case volume in 7 days — Payments & Crypto — Transaction, Wells, Send — Fraud or scam",
+      "cluster_id": "CL-019"
+    },
+    {
+      "timestamp": "2026-05-17T18:36:50",
+      "time": "18:36",
+      "severity": "LOW",
+      "type": "SIMMERING",
+      "message": "PERSISTENT: Cards & Payments — Citibank, Phone, Chat — Other features, terms, or problems active and entrenched",
+      "cluster_id": "CL-004"
+    },
+    {
+      "timestamp": "2026-05-15T12:57:30",
+      "time": "12:57",
+      "severity": "CRITICAL",
+      "type": "SPIKE",
+      "message": "CRITICAL SPIKE: +100% case volume in 7 days — Payments & Crypto — Error, Transfer, Verification — Fraud or scam",
+      "cluster_id": "CL-016"
+    },
+    {
+      "timestamp": "2026-05-14T03:43:18",
+      "time": "03:43",
+      "severity": "MEDIUM",
+      "type": "SIMMERING",
+      "message": "PERSISTENT: Cards & Payments — America, Charges, Error — Problem with a purchase shown on your statement active and entrenched",
+      "cluster_id": "CL-003"
+    },
+    {
+      "timestamp": "2026-05-14T01:25:23",
+      "time": "01:25",
+      "severity": "LOW",
+      "type": "SIMMERING",
+      "message": "PERSISTENT: Consumer Credit — Problem when making payments active and entrenched",
+      "cluster_id": "CL-008"
+    },
+    {
+      "timestamp": "2026-05-13T16:15:03",
+      "time": "16:15",
+      "severity": "LOW",
+      "type": "SIMMERING",
+      "message": "PERSISTENT: Auto Lending — Managing the loan or lease active and entrenched",
+      "cluster_id": "CL-000"
+    },
+    {
+      "timestamp": "2026-05-11T17:42:31",
+      "time": "17:42",
+      "severity": "LOW",
+      "type": "SIMMERING",
+      "message": "PERSISTENT: Mortgages — Escrow, Mortgage, Home — Trouble during payment process active and entrenched",
+      "cluster_id": "CL-011"
+    },
+    {
+      "timestamp": "2026-05-11T15:06:42",
+      "time": "15:06",
+      "severity": "MEDIUM",
+      "type": "SIMMERING",
+      "message": "PERSISTENT: Cards & Payments — Closure, Accounts, Closed — Closing your account active and entrenched",
+      "cluster_id": "CL-006"
+    },
+    {
+      "timestamp": "2026-04-13T21:39:38",
+      "time": "21:39",
+      "severity": "MEDIUM",
+      "type": "NEW CLUSTER",
+      "message": "NEW CLUSTER: Payments & Crypto — Paypal, Merchant, Fraud — Unauthorized transactions or other transaction problem pattern detected",
+      "cluster_id": "CL-017"
+    }
+  ],
+  "trend": [
+    {
+      "date": "2026-05-05",
+      "label": "May 05",
+      "critical": 1,
+      "high": 0,
+      "medium": 3,
+      "low": 3
+    },
+    {
+      "date": "2026-05-06",
+      "label": "May 06",
+      "critical": 0,
+      "high": 1,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2026-05-07",
+      "label": "May 07",
+      "critical": 1,
+      "high": 0,
+      "medium": 1,
+      "low": 0
+    },
+    {
+      "date": "2026-05-08",
+      "label": "May 08",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2026-05-09",
+      "label": "May 09",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2026-05-10",
+      "label": "May 10",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2026-05-11",
+      "label": "May 11",
+      "critical": 1,
+      "high": 1,
+      "medium": 2,
+      "low": 1
+    },
+    {
+      "date": "2026-05-12",
+      "label": "May 12",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 1
+    },
+    {
+      "date": "2026-05-13",
+      "label": "May 13",
+      "critical": 0,
+      "high": 2,
+      "medium": 1,
+      "low": 1
+    },
+    {
+      "date": "2026-05-14",
+      "label": "May 14",
+      "critical": 0,
+      "high": 0,
+      "medium": 2,
+      "low": 2
+    },
+    {
+      "date": "2026-05-15",
+      "label": "May 15",
+      "critical": 0,
+      "high": 0,
+      "medium": 1,
+      "low": 0
+    },
+    {
+      "date": "2026-05-16",
+      "label": "May 16",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2026-05-17",
+      "label": "May 17",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 1
+    },
+    {
+      "date": "2026-05-18",
+      "label": "May 18",
+      "critical": 0,
+      "high": 0,
+      "medium": 2,
+      "low": 0
+    },
+    {
+      "date": "2026-05-19",
+      "label": "May 19",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 1
+    },
+    {
+      "date": "2026-05-20",
+      "label": "May 20",
+      "critical": 1,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2026-05-21",
+      "label": "May 21",
+      "critical": 1,
+      "high": 1,
+      "medium": 1,
+      "low": 0
+    },
+    {
+      "date": "2026-05-22",
+      "label": "May 22",
+      "critical": 1,
+      "high": 0,
+      "medium": 1,
+      "low": 0
+    }
+  ]
+}

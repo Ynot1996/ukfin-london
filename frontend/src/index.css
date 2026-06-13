@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: #f5f7fa;
+  color: #1a2332;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hide scrollbars but keep scrolling (matches reference chrome-less panels). */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+@keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+.pulse-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
