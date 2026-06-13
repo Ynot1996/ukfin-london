@@ -1,7 +1,8 @@
 {
-  "generated_at": "2026-06-13T17:34:23.867637+00:00",
+  "generated_at": "2026-06-13T23:01:58.607221+00:00",
   "data_source": "CFPB Consumer Complaint Database",
   "adjudicator": "score",
+  "assessment_backend": "rules",
   "weights": {
     "frequency": 0.25,
     "severity": 0.3,
@@ -77,7 +78,64 @@
       "status": "ESCALATING",
       "priority": 0.9065,
       "rank": 1,
-      "priority_pct": 100
+      "priority_pct": 100,
+      "assessment": {
+        "why_concerning": "CRITICAL severity: 29 consumers affected by the same pattern at CITIBANK, N.A. and others, and it is accelerating fast (+200% in 7 days). Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 65%) because complaints explicitly reference automation (artificial intelligence, automated loop, automated system, glitch); and the harm fingerprint of automated decisioning (actions taken without notice, automated adverse actions, automated loops, decisions given with no explanation). The pattern is concentrated and repeating across 29 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Consumer Support",
+            "rationale": "Accounts/cards are actioned without notice, denying customers the chance to respond before harm crystallises."
+          },
+          {
+            "outcome": "Products & Services",
+            "rationale": "Automated adverse actions are taken at scale, raising doubt that the journey is designed to deliver good outcomes."
+          },
+          {
+            "outcome": "Consumer Understanding",
+            "rationale": "Adverse decisions are issued without an intelligible reason, so customers cannot understand or challenge them."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "An automated account-closure / fraud model appears to be exiting customers and reversing payments without manual review or notice.",
+            "likelihood": 0.81,
+            "evidence": "29 complaints showing automated closure and payment-reversal cues; AI-relatedness 65%; concentrated at CITIBANK, N.A., SYNCHRONY FINANCIAL, CAPITAL ONE FINANCIAL CORPORATION."
+          },
+          {
+            "mechanism": "If the automated model relies on variables that act as proxies for protected characteristics (e.g. postcode, name), outcomes may be indirectly discriminatory even without intent.",
+            "likelihood": 0.48,
+            "evidence": "Category is exposed to proxy-based discrimination; decisions issued without reasons make disparate impact hard to detect."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to CITIBANK, N.A. for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask CITIBANK, N.A. directly: did you deploy or materially change an automated monitoring model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          },
+          {
+            "action": "Require reinstatement of a human-review and escalation path before automated adverse actions take effect, and clear, specific reasons plus an accessible appeal route for affected customers.",
+            "basis": "Consumer Duty — Consumer Support & Understanding outcomes"
+          },
+          {
+            "action": "Require a disparate-impact / Equality Act impact assessment of the model across protected groups, with evidence the firm tests for and mitigates proxy discrimination.",
+            "basis": "Equality Act 2010 + Consumer Duty (avoid foreseeable harm)"
+          },
+          {
+            "action": "Consider commissioning a Skilled Person review of the firm's automated-decisioning governance and oversight.",
+            "basis": "FSMA 2000 s.166 (skilled persons report)"
+          }
+        ],
+        "generated_by": "rules"
+      }
     },
     {
       "id": "CL-019",
@@ -129,7 +187,56 @@
       "status": "ESCALATING",
       "priority": 0.5716,
       "rank": 2,
-      "priority_pct": 63
+      "priority_pct": 63,
+      "assessment": {
+        "why_concerning": "MEDIUM severity: 4 consumers affected by the same pattern at WELLS FARGO & COMPANY and others, and it is accelerating fast (+200% in 7 days). Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 50%) because the harm fingerprint of automated decisioning (decisions given with no explanation, no human reachable). The pattern is concentrated and repeating across 4 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Consumer Understanding",
+            "rationale": "Adverse decisions are issued without an intelligible reason, so customers cannot understand or challenge them."
+          },
+          {
+            "outcome": "Consumer Support",
+            "rationale": "Customers cannot reach a human to question or reverse an automated decision — an unreasonable barrier to support and redress."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "Automated AML / sanctions screening is likely freezing withdrawals; a recent model change may have increased false positives on legitimate users.",
+            "likelihood": 0.68,
+            "evidence": "4 complaints showing withdrawal-freeze and verification-failure cues; AI-relatedness 50%; concentrated at WELLS FARGO & COMPANY, Early Warning Services, LLC, BANK OF AMERICA, NATIONAL ASSOCIATION."
+          },
+          {
+            "mechanism": "If the automated model relies on variables that act as proxies for protected characteristics (e.g. postcode, name), outcomes may be indirectly discriminatory even without intent.",
+            "likelihood": 0.45,
+            "evidence": "Category is exposed to proxy-based discrimination; decisions issued without reasons make disparate impact hard to detect."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to WELLS FARGO & COMPANY for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask WELLS FARGO & COMPANY directly: did you deploy or materially change an automated monitoring model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          },
+          {
+            "action": "Require reinstatement of a human-review and escalation path before automated adverse actions take effect, and clear, specific reasons plus an accessible appeal route for affected customers.",
+            "basis": "Consumer Duty — Consumer Support & Understanding outcomes"
+          },
+          {
+            "action": "Require a disparate-impact / Equality Act impact assessment of the model across protected groups, with evidence the firm tests for and mitigates proxy discrimination.",
+            "basis": "Equality Act 2010 + Consumer Duty (avoid foreseeable harm)"
+          }
+        ],
+        "generated_by": "rules"
+      }
     },
     {
       "id": "CL-001",
@@ -189,7 +296,52 @@
       "status": "PERSISTENT",
       "priority": 0.5661,
       "rank": 3,
-      "priority_pct": 62
+      "priority_pct": 62,
+      "assessment": {
+        "why_concerning": "HIGH severity: 24 consumers affected by the same pattern at TRUIST FINANCIAL CORPORATION and others, and it is persistent and unresolved. Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 67%) because complaints explicitly reference automation (algorithm, artificial intelligence, automated system, chatbot); and the harm fingerprint of automated decisioning (actions taken without notice, automated loops, decisions given with no explanation, no human reachable). The pattern is concentrated and repeating across 24 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Consumer Support",
+            "rationale": "Accounts/cards are actioned without notice, denying customers the chance to respond before harm crystallises."
+          },
+          {
+            "outcome": "Consumer Understanding",
+            "rationale": "Adverse decisions are issued without an intelligible reason, so customers cannot understand or challenge them."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "The firm likely tightened an automated transaction-monitoring / financial-crime model, raising false-positive exit rates — legitimate customers are 'de-risked' and offboarded without manual review.",
+            "likelihood": 0.72,
+            "evidence": "24 complaints showing account-closure and suspicious-activity language concentrated at a few firms; AI-relatedness 67%; concentrated at TRUIST FINANCIAL CORPORATION, CITIBANK, N.A., BANK OF AMERICA, NATIONAL ASSOCIATION."
+          },
+          {
+            "mechanism": "An automated fraud-detection model may be flagging legitimate transactions, freezing funds before any human check.",
+            "likelihood": 0.67,
+            "evidence": "24 complaints showing fund-freeze and access-loss cues; AI-relatedness 67%; concentrated at TRUIST FINANCIAL CORPORATION, CITIBANK, N.A., BANK OF AMERICA, NATIONAL ASSOCIATION."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to TRUIST FINANCIAL CORPORATION for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask TRUIST FINANCIAL CORPORATION directly: did you deploy or materially change an automated monitoring model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          },
+          {
+            "action": "Require reinstatement of a human-review and escalation path before automated adverse actions take effect, and clear, specific reasons plus an accessible appeal route for affected customers.",
+            "basis": "Consumer Duty — Consumer Support & Understanding outcomes"
+          }
+        ],
+        "generated_by": "rules"
+      }
     },
     {
       "id": "CL-016",
@@ -247,7 +399,56 @@
       "status": "ESCALATING",
       "priority": 0.5272,
       "rank": 4,
-      "priority_pct": 58
+      "priority_pct": 58,
+      "assessment": {
+        "why_concerning": "MEDIUM severity: 9 consumers affected by the same pattern at Block, Inc. and others, and it is accelerating fast (+100% in 7 days). Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 70%) because complaints explicitly reference automation (automated system, chatbot, computer error, glitch); and the harm fingerprint of automated decisioning (automated loops, decisions given with no explanation, no human reachable). The pattern is concentrated and repeating across 9 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Consumer Support",
+            "rationale": "Customers are trapped in automated loops with no escalation path, frustrating their ability to resolve the issue."
+          },
+          {
+            "outcome": "Consumer Understanding",
+            "rationale": "Adverse decisions are issued without an intelligible reason, so customers cannot understand or challenge them."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "Automated AML / sanctions screening is likely freezing withdrawals; a recent model change may have increased false positives on legitimate users.",
+            "likelihood": 0.78,
+            "evidence": "9 complaints showing withdrawal-freeze and verification-failure cues; AI-relatedness 70%; concentrated at Block, Inc., Coinbase, Inc., JPMORGAN CHASE & CO.."
+          },
+          {
+            "mechanism": "If the automated model relies on variables that act as proxies for protected characteristics (e.g. postcode, name), outcomes may be indirectly discriminatory even without intent.",
+            "likelihood": 0.49,
+            "evidence": "Category is exposed to proxy-based discrimination; decisions issued without reasons make disparate impact hard to detect."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to Block, Inc. for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask Block, Inc. directly: did you deploy or materially change an automated monitoring model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          },
+          {
+            "action": "Require reinstatement of a human-review and escalation path before automated adverse actions take effect, and clear, specific reasons plus an accessible appeal route for affected customers.",
+            "basis": "Consumer Duty — Consumer Support & Understanding outcomes"
+          },
+          {
+            "action": "Require a disparate-impact / Equality Act impact assessment of the model across protected groups, with evidence the firm tests for and mitigates proxy discrimination.",
+            "basis": "Equality Act 2010 + Consumer Duty (avoid foreseeable harm)"
+          }
+        ],
+        "generated_by": "rules"
+      }
     },
     {
       "id": "CL-002",
@@ -306,7 +507,56 @@
       "status": "PERSISTENT",
       "priority": 0.4727,
       "rank": 5,
-      "priority_pct": 52
+      "priority_pct": 52,
+      "assessment": {
+        "why_concerning": "MEDIUM severity: 18 consumers affected by the same pattern at WELLS FARGO & COMPANY and others, and it is persistent and unresolved. Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 67%) because complaints explicitly reference automation (algorithm, automated loop, automated system, glitch); and the harm fingerprint of automated decisioning (automated adverse actions, automated loops, decisions given with no explanation, no human reachable). The pattern is concentrated and repeating across 18 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Products & Services",
+            "rationale": "Automated adverse actions are taken at scale, raising doubt that the journey is designed to deliver good outcomes."
+          },
+          {
+            "outcome": "Consumer Support",
+            "rationale": "Customers are trapped in automated loops with no escalation path, frustrating their ability to resolve the issue."
+          },
+          {
+            "outcome": "Consumer Understanding",
+            "rationale": "Adverse decisions are issued without an intelligible reason, so customers cannot understand or challenge them."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "The firm likely tightened an automated transaction-monitoring / financial-crime model, raising false-positive exit rates — legitimate customers are 'de-risked' and offboarded without manual review.",
+            "likelihood": 0.72,
+            "evidence": "18 complaints showing account-closure and suspicious-activity language concentrated at a few firms; AI-relatedness 67%; concentrated at WELLS FARGO & COMPANY, SOFI TECHNOLOGIES, INC., Paypal Holdings, Inc."
+          },
+          {
+            "mechanism": "An automated fraud-detection model may be flagging legitimate transactions, freezing funds before any human check.",
+            "likelihood": 0.67,
+            "evidence": "18 complaints showing fund-freeze and access-loss cues; AI-relatedness 67%; concentrated at WELLS FARGO & COMPANY, SOFI TECHNOLOGIES, INC., Paypal Holdings, Inc."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to WELLS FARGO & COMPANY for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask WELLS FARGO & COMPANY directly: did you deploy or materially change an automated monitoring model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          },
+          {
+            "action": "Require reinstatement of a human-review and escalation path before automated adverse actions take effect, and clear, specific reasons plus an accessible appeal route for affected customers.",
+            "basis": "Consumer Duty — Consumer Support & Understanding outcomes"
+          }
+        ],
+        "generated_by": "rules"
+      }
     },
     {
       "id": "CL-006",
@@ -363,7 +613,47 @@
       "status": "PERSISTENT",
       "priority": 0.4473,
       "rank": 6,
-      "priority_pct": 49
+      "priority_pct": 49,
+      "assessment": {
+        "why_concerning": "MEDIUM severity: 15 consumers affected by the same pattern at SYNCHRONY FINANCIAL and others, and it is persistent and unresolved. Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 57%) because complaints explicitly reference automation (algorithm, automated system, glitch); and the harm fingerprint of automated decisioning (actions taken without notice, decisions given with no explanation, no human reachable). The pattern is concentrated and repeating across 15 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Consumer Support",
+            "rationale": "Accounts/cards are actioned without notice, denying customers the chance to respond before harm crystallises."
+          },
+          {
+            "outcome": "Consumer Understanding",
+            "rationale": "Adverse decisions are issued without an intelligible reason, so customers cannot understand or challenge them."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "An automated account-closure / fraud model appears to be exiting customers and reversing payments without manual review or notice.",
+            "likelihood": 0.79,
+            "evidence": "15 complaints showing automated closure and payment-reversal cues; AI-relatedness 57%; concentrated at SYNCHRONY FINANCIAL, CAPITAL ONE FINANCIAL CORPORATION, CITIBANK, N.A.."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to SYNCHRONY FINANCIAL for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask SYNCHRONY FINANCIAL directly: did you deploy or materially change an automated monitoring model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          },
+          {
+            "action": "Require reinstatement of a human-review and escalation path before automated adverse actions take effect, and clear, specific reasons plus an accessible appeal route for affected customers.",
+            "basis": "Consumer Duty — Consumer Support & Understanding outcomes"
+          }
+        ],
+        "generated_by": "rules"
+      }
     },
     {
       "id": "CL-003",
@@ -421,7 +711,51 @@
       "status": "PERSISTENT",
       "priority": 0.4358,
       "rank": 7,
-      "priority_pct": 48
+      "priority_pct": 48,
+      "assessment": {
+        "why_concerning": "MEDIUM severity: 14 consumers affected by the same pattern at U.S. BANCORP and others, and it is persistent and unresolved. Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 70%) because complaints explicitly reference automation (algorithm, automated system, chatbot, glitch); and the harm fingerprint of automated decisioning (automated adverse actions, decisions given with no explanation, no human reachable). The pattern is concentrated and repeating across 14 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Products & Services",
+            "rationale": "Automated adverse actions are taken at scale, raising doubt that the journey is designed to deliver good outcomes."
+          },
+          {
+            "outcome": "Consumer Understanding",
+            "rationale": "Adverse decisions are issued without an intelligible reason, so customers cannot understand or challenge them."
+          },
+          {
+            "outcome": "Consumer Support",
+            "rationale": "Customers cannot reach a human to question or reverse an automated decision — an unreasonable barrier to support and redress."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "An automated account-closure / fraud model appears to be exiting customers and reversing payments without manual review or notice.",
+            "likelihood": 0.73,
+            "evidence": "14 complaints showing automated closure and payment-reversal cues; AI-relatedness 70%; concentrated at U.S. BANCORP, BANK OF AMERICA, NATIONAL ASSOCIATION, GOLDMAN SACHS BANK USA."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to U.S. BANCORP for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask U.S. BANCORP directly: did you deploy or materially change an automated monitoring model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          },
+          {
+            "action": "Require reinstatement of a human-review and escalation path before automated adverse actions take effect, and clear, specific reasons plus an accessible appeal route for affected customers.",
+            "basis": "Consumer Duty — Consumer Support & Understanding outcomes"
+          }
+        ],
+        "generated_by": "rules"
+      }
     },
     {
       "id": "CL-015",
@@ -472,7 +806,39 @@
       "status": "ESCALATING",
       "priority": 0.4127,
       "rank": 8,
-      "priority_pct": 46
+      "priority_pct": 46,
+      "assessment": {
+        "why_concerning": "LOW severity: 3 consumers affected by the same pattern at Freedom Mortgage Company and others, and it is accelerating fast (+100% in 7 days). Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 60%) because complaints explicitly reference automation (automated system, glitch). The pattern is concentrated and repeating across 3 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Products & Services",
+            "rationale": "Repeated automated detriment calls into question whether the journey is designed to deliver good outcomes (cross-cutting duty to avoid foreseeable harm)."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "Automated underwriting / affordability logic or an automated rate-switching process appears to be producing detriment without a clear, individualised rationale.",
+            "likelihood": 0.65,
+            "evidence": "3 complaints showing automated underwriting and rate-switch cues; AI-relatedness 60%; concentrated at Freedom Mortgage Company, MIDFIRST BANK."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to Freedom Mortgage Company for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask Freedom Mortgage Company directly: did you deploy or materially change an automated decisioning model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          }
+        ],
+        "generated_by": "rules"
+      }
     },
     {
       "id": "CL-017",
@@ -528,7 +894,47 @@
       "status": "STABLE",
       "priority": 0.3604,
       "rank": 9,
-      "priority_pct": 40
+      "priority_pct": 40,
+      "assessment": {
+        "why_concerning": "MEDIUM severity: 7 consumers affected by the same pattern at Paypal Holdings, Inc and others, and it is persistent and unresolved. Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 67%) because complaints explicitly reference automation (automated decision, automated loop, automated system, glitch); and the harm fingerprint of automated decisioning (decisions given with no explanation, no human reachable). The pattern is concentrated and repeating across 7 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Consumer Understanding",
+            "rationale": "Adverse decisions are issued without an intelligible reason, so customers cannot understand or challenge them."
+          },
+          {
+            "outcome": "Consumer Support",
+            "rationale": "Customers cannot reach a human to question or reverse an automated decision — an unreasonable barrier to support and redress."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "Automated AML / sanctions screening is likely freezing withdrawals; a recent model change may have increased false positives on legitimate users.",
+            "likelihood": 0.72,
+            "evidence": "7 complaints showing withdrawal-freeze and verification-failure cues; AI-relatedness 67%; concentrated at Paypal Holdings, Inc, Remitly, Inc.."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to Paypal Holdings, Inc for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask Paypal Holdings, Inc directly: did you deploy or materially change an automated monitoring model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          },
+          {
+            "action": "Require reinstatement of a human-review and escalation path before automated adverse actions take effect, and clear, specific reasons plus an accessible appeal route for affected customers.",
+            "basis": "Consumer Duty — Consumer Support & Understanding outcomes"
+          }
+        ],
+        "generated_by": "rules"
+      }
     },
     {
       "id": "CL-008",
@@ -584,7 +990,56 @@
       "status": "PERSISTENT",
       "priority": 0.3402,
       "rank": 10,
-      "priority_pct": 38
+      "priority_pct": 38,
+      "assessment": {
+        "why_concerning": "LOW severity: 6 consumers affected by the same pattern at CITIBANK, N.A. and others, and it is persistent and unresolved. Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 62%) because complaints explicitly reference automation (chatbot, glitch); and the harm fingerprint of automated decisioning (automated loops, decisions given with no explanation, no human reachable). The pattern is concentrated and repeating across 6 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Consumer Support",
+            "rationale": "Customers are trapped in automated loops with no escalation path, frustrating their ability to resolve the issue."
+          },
+          {
+            "outcome": "Consumer Understanding",
+            "rationale": "Adverse decisions are issued without an intelligible reason, so customers cannot understand or challenge them."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "An automated affordability / credit-decisioning model was likely recalibrated, raising decline rates. Because such models lean on proxy variables, there is a real risk of indirect discrimination.",
+            "likelihood": 0.66,
+            "evidence": "6 complaints showing automated decline and affordability cues; AI-relatedness 62%; concentrated at CITIBANK, N.A., PatientFi, Inc., Klarna AB."
+          },
+          {
+            "mechanism": "If the automated model relies on variables that act as proxies for protected characteristics (e.g. postcode, name), outcomes may be indirectly discriminatory even without intent.",
+            "likelihood": 0.47,
+            "evidence": "Category is exposed to proxy-based discrimination; decisions issued without reasons make disparate impact hard to detect."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to CITIBANK, N.A. for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask CITIBANK, N.A. directly: did you deploy or materially change an automated decisioning model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          },
+          {
+            "action": "Require reinstatement of a human-review and escalation path before automated adverse actions take effect, and clear, specific reasons plus an accessible appeal route for affected customers.",
+            "basis": "Consumer Duty — Consumer Support & Understanding outcomes"
+          },
+          {
+            "action": "Require a disparate-impact / Equality Act impact assessment of the model across protected groups, with evidence the firm tests for and mitigates proxy discrimination.",
+            "basis": "Equality Act 2010 + Consumer Duty (avoid foreseeable harm)"
+          }
+        ],
+        "generated_by": "rules"
+      }
     },
     {
       "id": "CL-004",
@@ -640,7 +1095,39 @@
       "status": "PERSISTENT",
       "priority": 0.3253,
       "rank": 11,
-      "priority_pct": 36
+      "priority_pct": 36,
+      "assessment": {
+        "why_concerning": "LOW severity: 7 consumers affected by the same pattern at CITIBANK, N.A. and others, and it is persistent and unresolved. Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 67%) because complaints explicitly reference automation (algorithm, automated system, chatbot, glitch); and the harm fingerprint of automated decisioning (decisions given with no explanation). The pattern is concentrated and repeating across 7 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Consumer Understanding",
+            "rationale": "Adverse decisions are issued without an intelligible reason, so customers cannot understand or challenge them."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "An automated account-closure / fraud model appears to be exiting customers and reversing payments without manual review or notice.",
+            "likelihood": 0.72,
+            "evidence": "7 complaints showing automated closure and payment-reversal cues; AI-relatedness 67%; concentrated at CITIBANK, N.A., BANK OF AMERICA, NATIONAL ASSOCIATION, AMERICAN EXPRESS COMPANY."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to CITIBANK, N.A. for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask CITIBANK, N.A. directly: did you deploy or materially change an automated monitoring model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          }
+        ],
+        "generated_by": "rules"
+      }
     },
     {
       "id": "CL-011",
@@ -693,7 +1180,39 @@
       "status": "PERSISTENT",
       "priority": 0.324,
       "rank": 12,
-      "priority_pct": 36
+      "priority_pct": 36,
+      "assessment": {
+        "why_concerning": "LOW severity: 7 consumers affected by the same pattern at Rocket Mortgage, LLC and others, and it is persistent and unresolved. Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 60%) because complaints explicitly reference automation (automated system, chatbot, glitch). The pattern is concentrated and repeating across 7 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Products & Services",
+            "rationale": "Repeated automated detriment calls into question whether the journey is designed to deliver good outcomes (cross-cutting duty to avoid foreseeable harm)."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "Automated underwriting / affordability logic or an automated rate-switching process appears to be producing detriment without a clear, individualised rationale.",
+            "likelihood": 0.65,
+            "evidence": "7 complaints showing automated underwriting and rate-switch cues; AI-relatedness 60%; concentrated at Rocket Mortgage, LLC, CrossCountry Mortgage LLC, Selene Holdings LLC."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to Rocket Mortgage, LLC for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask Rocket Mortgage, LLC directly: did you deploy or materially change an automated decisioning model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          }
+        ],
+        "generated_by": "rules"
+      }
     },
     {
       "id": "CL-005",
@@ -746,7 +1265,47 @@
       "status": "STABLE",
       "priority": 0.3104,
       "rank": 13,
-      "priority_pct": 34
+      "priority_pct": 34,
+      "assessment": {
+        "why_concerning": "LOW severity: 4 consumers affected by the same pattern at WELLS FARGO & COMPANY, and it is persistent and unresolved. Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 68%) because complaints explicitly reference automation (automated system, glitch); and the harm fingerprint of automated decisioning (decisions given with no explanation, no human reachable). The pattern is concentrated and repeating across 4 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Consumer Understanding",
+            "rationale": "Adverse decisions are issued without an intelligible reason, so customers cannot understand or challenge them."
+          },
+          {
+            "outcome": "Consumer Support",
+            "rationale": "Customers cannot reach a human to question or reverse an automated decision — an unreasonable barrier to support and redress."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "An automated account-closure / fraud model appears to be exiting customers and reversing payments without manual review or notice.",
+            "likelihood": 0.72,
+            "evidence": "4 complaints showing automated closure and payment-reversal cues; AI-relatedness 68%; concentrated at WELLS FARGO & COMPANY."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to WELLS FARGO & COMPANY for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask WELLS FARGO & COMPANY directly: did you deploy or materially change an automated monitoring model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          },
+          {
+            "action": "Require reinstatement of a human-review and escalation path before automated adverse actions take effect, and clear, specific reasons plus an accessible appeal route for affected customers.",
+            "basis": "Consumer Duty — Consumer Support & Understanding outcomes"
+          }
+        ],
+        "generated_by": "rules"
+      }
     },
     {
       "id": "CL-000",
@@ -800,7 +1359,52 @@
       "status": "PERSISTENT",
       "priority": 0.2933,
       "rank": 14,
-      "priority_pct": 32
+      "priority_pct": 32,
+      "assessment": {
+        "why_concerning": "LOW severity: 6 consumers affected by the same pattern at Westlake Services, LLC and others, and it is persistent and unresolved. Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 64%) because complaints explicitly reference automation (automated system, glitch); and the harm fingerprint of automated decisioning (no human reachable). The pattern is concentrated and repeating across 6 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Consumer Support",
+            "rationale": "Customers cannot reach a human to question or reverse an automated decision — an unreasonable barrier to support and redress."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "A recently deployed or changed automated decisioning process appears to be producing the recurring detriment seen in these complaints.",
+            "likelihood": 0.56,
+            "evidence": "6 complaints showing repeating automated-handling cues; AI-relatedness 64%; concentrated at Westlake Services, LLC, CAPITAL ONE FINANCIAL CORPORATION, FLAGSHIP FINANCIAL GROUP LLC."
+          },
+          {
+            "mechanism": "If the automated model relies on variables that act as proxies for protected characteristics (e.g. postcode, name), outcomes may be indirectly discriminatory even without intent.",
+            "likelihood": 0.48,
+            "evidence": "Category is exposed to proxy-based discrimination; decisions issued without reasons make disparate impact hard to detect."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to Westlake Services, LLC for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask Westlake Services, LLC directly: did you deploy or materially change an automated decisioning model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          },
+          {
+            "action": "Require reinstatement of a human-review and escalation path before automated adverse actions take effect, and clear, specific reasons plus an accessible appeal route for affected customers.",
+            "basis": "Consumer Duty — Consumer Support & Understanding outcomes"
+          },
+          {
+            "action": "Require a disparate-impact / Equality Act impact assessment of the model across protected groups, with evidence the firm tests for and mitigates proxy discrimination.",
+            "basis": "Equality Act 2010 + Consumer Duty (avoid foreseeable harm)"
+          }
+        ],
+        "generated_by": "rules"
+      }
     },
     {
       "id": "CL-018",
@@ -853,7 +1457,43 @@
       "status": "STABLE",
       "priority": 0.2931,
       "rank": 15,
-      "priority_pct": 32
+      "priority_pct": 32,
+      "assessment": {
+        "why_concerning": "LOW severity: 3 consumers affected by the same pattern at HUNTINGTON NATIONAL BANK, THE and others, and it is persistent and unresolved. Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 68%) because complaints explicitly reference automation (automated system); and the harm fingerprint of automated decisioning (no human reachable). The pattern is concentrated and repeating across 3 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Consumer Support",
+            "rationale": "Customers cannot reach a human to question or reverse an automated decision — an unreasonable barrier to support and redress."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "Automated AML / sanctions screening is likely freezing withdrawals; a recent model change may have increased false positives on legitimate users.",
+            "likelihood": 0.72,
+            "evidence": "3 complaints showing withdrawal-freeze and verification-failure cues; AI-relatedness 68%; concentrated at HUNTINGTON NATIONAL BANK, THE, Certegy Holdings, LLC, Atlanticus Services Corporation."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to HUNTINGTON NATIONAL BANK, THE for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask HUNTINGTON NATIONAL BANK, THE directly: did you deploy or materially change an automated monitoring model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          },
+          {
+            "action": "Require reinstatement of a human-review and escalation path before automated adverse actions take effect, and clear, specific reasons plus an accessible appeal route for affected customers.",
+            "basis": "Consumer Duty — Consumer Support & Understanding outcomes"
+          }
+        ],
+        "generated_by": "rules"
+      }
     },
     {
       "id": "CL-012",
@@ -902,7 +1542,39 @@
       "status": "STABLE",
       "priority": 0.2629,
       "rank": 16,
-      "priority_pct": 29
+      "priority_pct": 29,
+      "assessment": {
+        "why_concerning": "LOW severity: 2 consumers affected by the same pattern at Shellpoint Partners, LLC and others, and it is persistent and unresolved. Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 60%) because complaints explicitly reference automation (automated system). The pattern is concentrated and repeating across 2 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Products & Services",
+            "rationale": "Repeated automated detriment calls into question whether the journey is designed to deliver good outcomes (cross-cutting duty to avoid foreseeable harm)."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "Automated underwriting / affordability logic or an automated rate-switching process appears to be producing detriment without a clear, individualised rationale.",
+            "likelihood": 0.6,
+            "evidence": "2 complaints showing automated underwriting and rate-switch cues; AI-relatedness 60%; concentrated at Shellpoint Partners, LLC, Rocket Mortgage, LLC."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to Shellpoint Partners, LLC for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask Shellpoint Partners, LLC directly: did you deploy or materially change an automated decisioning model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          }
+        ],
+        "generated_by": "rules"
+      }
     },
     {
       "id": "CL-013",
@@ -951,7 +1623,39 @@
       "status": "STABLE",
       "priority": 0.2629,
       "rank": 17,
-      "priority_pct": 29
+      "priority_pct": 29,
+      "assessment": {
+        "why_concerning": "LOW severity: 2 consumers affected by the same pattern at Rocket Mortgage, LLC and others, and it is persistent and unresolved. Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 60%) because complaints explicitly reference automation (automated system). The pattern is concentrated and repeating across 2 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Products & Services",
+            "rationale": "Repeated automated detriment calls into question whether the journey is designed to deliver good outcomes (cross-cutting duty to avoid foreseeable harm)."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "Automated underwriting / affordability logic or an automated rate-switching process appears to be producing detriment without a clear, individualised rationale.",
+            "likelihood": 0.6,
+            "evidence": "2 complaints showing automated underwriting and rate-switch cues; AI-relatedness 60%; concentrated at Rocket Mortgage, LLC, Shellpoint Partners, LLC."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to Rocket Mortgage, LLC for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask Rocket Mortgage, LLC directly: did you deploy or materially change an automated decisioning model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          }
+        ],
+        "generated_by": "rules"
+      }
     },
     {
       "id": "CL-014",
@@ -1000,7 +1704,39 @@
       "status": "STABLE",
       "priority": 0.2629,
       "rank": 18,
-      "priority_pct": 29
+      "priority_pct": 29,
+      "assessment": {
+        "why_concerning": "LOW severity: 2 consumers affected by the same pattern at TRUIST FINANCIAL CORPORATION and others, and it is persistent and unresolved. Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 60%) because complaints explicitly reference automation (automated system). The pattern is concentrated and repeating across 2 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Products & Services",
+            "rationale": "Repeated automated detriment calls into question whether the journey is designed to deliver good outcomes (cross-cutting duty to avoid foreseeable harm)."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "Automated underwriting / affordability logic or an automated rate-switching process appears to be producing detriment without a clear, individualised rationale.",
+            "likelihood": 0.6,
+            "evidence": "2 complaints showing automated underwriting and rate-switch cues; AI-relatedness 60%; concentrated at TRUIST FINANCIAL CORPORATION, Shellpoint Partners, LLC."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to TRUIST FINANCIAL CORPORATION for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask TRUIST FINANCIAL CORPORATION directly: did you deploy or materially change an automated decisioning model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          }
+        ],
+        "generated_by": "rules"
+      }
     },
     {
       "id": "CL-009",
@@ -1053,7 +1789,52 @@
       "status": "STABLE",
       "priority": 0.238,
       "rank": 19,
-      "priority_pct": 26
+      "priority_pct": 26,
+      "assessment": {
+        "why_concerning": "LOW severity: 3 consumers affected by the same pattern at Experian Information Solutions Inc. and others, and it is persistent and unresolved. Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 57%) because complaints explicitly reference automation (chatbot); and the harm fingerprint of automated decisioning (no human reachable). The pattern is concentrated and repeating across 3 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Consumer Support",
+            "rationale": "Customers cannot reach a human to question or reverse an automated decision — an unreasonable barrier to support and redress."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "Automated dispute resolution (e-OSCAR-style) is likely closing investigations without genuine human review, leaving errors uncorrected.",
+            "likelihood": 0.74,
+            "evidence": "3 complaints showing automated-investigation and unresolved-dispute cues; AI-relatedness 57%; concentrated at Experian Information Solutions Inc., WELLS FARGO & COMPANY, Harris & Harris, Ltd.."
+          },
+          {
+            "mechanism": "If the automated model relies on variables that act as proxies for protected characteristics (e.g. postcode, name), outcomes may be indirectly discriminatory even without intent.",
+            "likelihood": 0.46,
+            "evidence": "Category is exposed to proxy-based discrimination; decisions issued without reasons make disparate impact hard to detect."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to Experian Information Solutions Inc. for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask Experian Information Solutions Inc. directly: did you deploy or materially change an automated decisioning model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          },
+          {
+            "action": "Require reinstatement of a human-review and escalation path before automated adverse actions take effect, and clear, specific reasons plus an accessible appeal route for affected customers.",
+            "basis": "Consumer Duty — Consumer Support & Understanding outcomes"
+          },
+          {
+            "action": "Require a disparate-impact / Equality Act impact assessment of the model across protected groups, with evidence the firm tests for and mitigates proxy discrimination.",
+            "basis": "Equality Act 2010 + Consumer Duty (avoid foreseeable harm)"
+          }
+        ],
+        "generated_by": "rules"
+      }
     },
     {
       "id": "CL-010",
@@ -1104,7 +1885,39 @@
       "status": "STABLE",
       "priority": 0.2377,
       "rank": 20,
-      "priority_pct": 26
+      "priority_pct": 26,
+      "assessment": {
+        "why_concerning": "LOW severity: 3 consumers affected by the same pattern at TRANSUNION INTERMEDIATE HOLDINGS, INC. and others, and it is persistent and unresolved. Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 60%) because complaints explicitly reference automation (automated decision, automated system). The pattern is concentrated and repeating across 3 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Products & Services",
+            "rationale": "Repeated automated detriment calls into question whether the journey is designed to deliver good outcomes (cross-cutting duty to avoid foreseeable harm)."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "Automated dialer / letter systems may be pursuing debts not owed, with no easy route to a human to correct the record.",
+            "likelihood": 0.7,
+            "evidence": "3 complaints showing debt-not-owed and automated-contact cues; AI-relatedness 60%; concentrated at TRANSUNION INTERMEDIATE HOLDINGS, INC., TRANSWORLD SYSTEMS INC."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to TRANSUNION INTERMEDIATE HOLDINGS, INC. for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask TRANSUNION INTERMEDIATE HOLDINGS, INC. directly: did you deploy or materially change an automated decisioning model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          }
+        ],
+        "generated_by": "rules"
+      }
     },
     {
       "id": "CL-020",
@@ -1154,7 +1967,39 @@
       "status": "STABLE",
       "priority": 0.2254,
       "rank": 21,
-      "priority_pct": 25
+      "priority_pct": 25,
+      "assessment": {
+        "why_concerning": "LOW severity: 2 consumers affected by the same pattern at Central Research Inc and others, and it is persistent and unresolved. Left unaddressed it risks foreseeable harm at scale before any individual complaint is resolved.",
+        "ai_rationale": "Flagged AI/automation-related (confidence 60%) because complaints explicitly reference automation (automated system, glitch). The pattern is concentrated and repeating across 2 complaints, which is more consistent with a systematic automated process than with isolated human error.",
+        "consumer_duty": [
+          {
+            "outcome": "Products & Services",
+            "rationale": "Repeated automated detriment calls into question whether the journey is designed to deliver good outcomes (cross-cutting duty to avoid foreseeable harm)."
+          }
+        ],
+        "hypotheses": [
+          {
+            "mechanism": "A recently deployed or changed automated decisioning process appears to be producing the recurring detriment seen in these complaints.",
+            "likelihood": 0.55,
+            "evidence": "2 complaints showing repeating automated-handling cues; AI-relatedness 60%; concentrated at Central Research Inc, Maximus Federal Services, Inc.."
+          }
+        ],
+        "actions": [
+          {
+            "action": "Issue a formal information request to Central Research Inc for documentation of any automated decisioning model in this journey — model purpose, version/change log over the affected period, validation reports, and decline/false-positive/exit-rate metrics.",
+            "basis": "FSMA 2000 s.165 (power to require information)"
+          },
+          {
+            "action": "Ask Central Research Inc directly: did you deploy or materially change an automated decisioning model in the last 6–12 months, and what consumer-outcome testing preceded it?",
+            "basis": "Supervisory enquiry under Principle 11 (open & cooperative)"
+          },
+          {
+            "action": "Require a Consumer Duty outcomes assessment for the affected journey, evidencing that customers receive good outcomes and fair value.",
+            "basis": "PRIN 2A (Consumer Duty) / Principle 12"
+          }
+        ],
+        "generated_by": "rules"
+      }
     }
   ],
   "alerts": [

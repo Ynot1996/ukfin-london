@@ -28,6 +28,7 @@ import sys
 from datetime import datetime, timezone
 
 import ai_filter
+import assessment
 import cfpb_client
 import cluster
 import llm_adjudicator
@@ -42,6 +43,9 @@ USE_CACHE = os.environ.get("REFRESH", "0") != "1"
 YEARS_BACK = int(os.environ.get("YEARS_BACK", "3"))
 ADJUDICATE_BACKEND = os.environ.get("ADJUDICATE_BACKEND", "auto")
 ADJUDICATE_MAX = int(os.environ.get("ADJUDICATE_MAX", "0"))
+# Stage 5 supervisory assessment backend + cap (LLM is per-cluster).
+ASSESS_BACKEND = os.environ.get("ASSESS_BACKEND", "auto")
+ASSESS_MAX = int(os.environ.get("ASSESS_MAX", "0"))
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(message)s",
                     datefmt="%H:%M:%S")
@@ -96,10 +100,18 @@ def run() -> int:
     trend = scoring.build_trend(clusters)
     kpis = scoring.build_kpis(clusters, total_fetched, total_ai)
 
+    # Stage 5: per-cluster supervisory assessment (why concerning / why AI /
+    # Consumer Duty breach / mechanism hypotheses / regulator actions).
+    print(f"🧑‍⚖️  Stage 5: supervisory assessments (backend={ASSESS_BACKEND})...")
+    clusters = assessment.assess_clusters(clusters, backend=ASSESS_BACKEND,
+                                          max_clusters=ASSESS_MAX)
+    assess_backend = clusters[0]["assessment"]["generated_by"] if clusters else ASSESS_BACKEND
+
     dashboard = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "data_source": "CFPB Consumer Complaint Database",
         "adjudicator": backend_used,
+        "assessment_backend": assess_backend,
         "weights": scoring.DEFAULT_WEIGHTS,
         "kpis": kpis,
         "clusters": clusters,

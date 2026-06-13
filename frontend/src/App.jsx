@@ -7,6 +7,7 @@ import ClusterRankings from "./components/ClusterRankings.jsx";
 import LiveAlerts from "./components/LiveAlerts.jsx";
 import TrendChart from "./components/TrendChart.jsx";
 import ClusterTable from "./components/ClusterTable.jsx";
+import Assessment from "./components/Assessment.jsx";
 
 export default function App() {
   const [data, setData] = useState(null);
@@ -123,6 +124,10 @@ function ClusterDrawer({ cluster, onClose }) {
               </div>
             </Section>
           )}
+
+          {/* The supervisory dossier — why concerning, why AI, Consumer Duty,
+              mechanism hypotheses, and recommended regulator actions. */}
+          <Assessment assessment={cluster.assessment} />
 
           {cluster.sample_narratives?.length > 0 && (
             <Section title="Sample complaints">
