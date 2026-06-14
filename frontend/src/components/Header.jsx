@@ -1,35 +1,28 @@
-// Top app bar — slate-blue, matching the reference dashboard chrome.
-export default function Header({ generatedAt, adjudicator }) {
+import { Logo } from "../ui.jsx";
+
+export default function Header({ generatedAt, adjudicator, onOverview }) {
   const date = generatedAt
     ? new Date(generatedAt).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })
     : "—";
   return (
-    <header
-      className="h-12 flex items-center px-5 gap-4 flex-shrink-0 text-white"
-      style={{ backgroundColor: "#3d5a7a" }}
-    >
-      <div className="flex items-center gap-2">
-        <div className="w-5 h-5 rounded-sm flex items-center justify-center" style={{ background: "#4fc3dc" }}>
-          <span className="text-[#1a2332] text-xs font-black">S</span>
-        </div>
-        <span className="font-semibold text-sm tracking-tight">Sentinel</span>
-        <span className="text-white/50 text-sm">·</span>
-        <span className="text-white/80 text-sm">FCA Supervision Intelligence</span>
+    <header className="h-16 flex items-center px-6 gap-5 flex-shrink-0 bg-surface/80 backdrop-blur-xl border-b border-white/[0.06] z-30">
+      <div className="flex items-center gap-3">
+        <a onClick={onOverview} className="w-9 h-9 rounded-xl flex items-center justify-center bg-brand/10 border border-brand/20 cursor-pointer">
+          <Logo className="w-5 h-5 text-brand" />
+        </a>
+        <span className="font-bold text-lg font-heading tracking-tight text-ink">ReguLens</span>
+        <span className="text-white/20 text-lg">|</span>
+        <span className="text-muted text-sm font-medium">Supervision Intelligence</span>
       </div>
 
-      <span className="text-[10px] font-semibold tracking-wider bg-white/15 px-2 py-0.5 rounded">
-        ALPHA · LIVE CFPB DATA
+      <span className="text-[10px] font-bold tracking-[0.2em] uppercase bg-brand/10 text-brand border border-brand/20 px-3 py-1 rounded-lg">
+        Alpha
       </span>
 
-      <nav className="flex items-center gap-1 ml-4 text-sm">
-        <a className="px-2.5 py-1 rounded bg-white/15 font-medium">Supervision</a>
-        <a className="px-2.5 py-1 rounded text-white/70 hover:bg-white/10 cursor-pointer">Overview</a>
-      </nav>
-
-      <div className="ml-auto flex items-center gap-3 text-xs text-white/80">
-        <span className="capitalize">Adjudicator: {adjudicator || "—"}</span>
-        <span className="text-white/40">|</span>
-        <span>{date} · Daily View</span>
+      <div className="ml-auto flex items-center gap-4 text-sm text-muted">
+        <span className="capitalize">{adjudicator || "—"}</span>
+        <span className="text-white/10">|</span>
+        <span>{date}</span>
       </div>
     </header>
   );

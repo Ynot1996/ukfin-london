@@ -1,46 +1,61 @@
 // Shared UI helpers: severity styling, formatters, small primitives.
+import { AlertCircle, AlertTriangle, ShieldAlert, CheckCircle2, Loader2, ArrowUpCircle, ArrowDownCircle } from "lucide-react";
 
 export const SEVERITY_HEX = {
-  CRITICAL: "#dc2b4b",
-  HIGH: "#f0762b",
-  MEDIUM: "#e0a92e",
-  LOW: "#3fa66a",
+  CRITICAL: "#dc2626",
+  HIGH: "#ea580c",
+  MEDIUM: "#ca8a04",
+  LOW: "#059669",
 };
 
-const SEV_CLASSES = {
-  CRITICAL: "bg-critical/10 text-critical border-critical/30",
-  HIGH: "bg-high/10 text-high border-high/30",
-  MEDIUM: "bg-medium/10 text-medium border-medium/30",
-  LOW: "bg-low/10 text-low border-low/30",
+const SEV_ICON = {
+  CRITICAL: ShieldAlert,
+  HIGH: AlertTriangle,
+  MEDIUM: AlertCircle,
+  LOW: CheckCircle2,
 };
 
 export function SeverityBadge({ band }) {
-  const cls = SEV_CLASSES[band] || SEV_CLASSES.LOW;
+  const hex = SEVERITY_HEX[band] || SEVERITY_HEX.LOW;
+  const Icon = SEV_ICON[band] || CheckCircle2;
   return (
-    <span className={`inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-semibold tracking-wide border ${cls}`}>
+    <span
+      className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-lg border"
+      style={{ color: hex, borderColor: `${hex}20`, background: `${hex}08` }}
+    >
+      <Icon className="w-3.5 h-3.5" strokeWidth={2} />
       {band}
     </span>
   );
 }
 
 export function StatusBadge({ status }) {
-  const map = {
-    ESCALATING: "text-critical",
-    PERSISTENT: "text-high",
-    SIMMERING: "text-medium",
-    STABLE: "text-muted",
+  const styles = {
+    ESCALATING: { color: "#dc2626", bg: "#dc262608", border: "#dc262620" },
+    PERSISTENT: { color: "#ea580c", bg: "#ea580c08", border: "#ea580c20" },
+    SIMMERING: { color: "#ca8a04", bg: "#ca8a0408", border: "#ca8a0420" },
+    STABLE: { color: "#5b6b82", bg: "#5b6b8208", border: "#5b6b8220" },
   };
-  return <span className={`text-[11px] font-semibold ${map[status] || "text-muted"}`}>{status}</span>;
+  const s = styles[status] || styles.STABLE;
+  return (
+    <span
+      className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-lg border"
+      style={{ color: s.color, backgroundColor: s.bg, borderColor: s.border }}
+    >
+      <Loader2 className="w-3.5 h-3.5" strokeWidth={2} />
+      {status}
+    </span>
+  );
 }
 
-// "+312%" green-up / red-down with sign.
 export function GrowthPill({ value }) {
   const v = Math.round(value);
   const up = v >= 0;
+  const Icon = up ? ArrowUpCircle : ArrowDownCircle;
   return (
-    <span className={`font-mono text-xs font-semibold ${up ? "text-critical" : "text-low"}`}>
-      {up ? "+" : "−"}
-      {Math.abs(v)}%
+    <span className={`inline-flex items-center gap-1 font-mono text-sm font-semibold ${up ? "text-critical" : "text-low"}`}>
+      <Icon className="w-3.5 h-3.5" strokeWidth={2} />
+      {up ? "+" : "−"}{Math.abs(v)}%
     </span>
   );
 }
@@ -59,15 +74,52 @@ export function fmtTime(iso) {
 
 export function Panel({ title, subtitle, right, children, className = "" }) {
   return (
-    <section className={`bg-card border border-line rounded-lg flex flex-col min-h-0 ${className}`}>
-      <div className="flex items-center justify-between px-4 py-2.5 border-b border-line flex-shrink-0">
+    <section className={`glass flex flex-col min-h-0 ${className}`}>
+      <div className="flex items-center justify-between px-6 py-4 border-b border-line/30 flex-shrink-0">
         <div>
-          <h2 className="text-sm font-semibold text-ink">{title}</h2>
-          {subtitle && <p className="text-[11px] text-muted mt-0.5">{subtitle}</p>}
+          <h2 className="text-base font-semibold text-ink font-heading">{title}</h2>
+          {subtitle && <p className="text-sm text-muted mt-0.5">{subtitle}</p>}
         </div>
         {right}
       </div>
       <div className="flex-1 min-h-0 overflow-auto no-scrollbar">{children}</div>
     </section>
+  );
+}
+
+export function Logo({ className = "w-5 h-5" }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 100 100"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Overlapping lens arcs */}
+      <path
+        d="M 50 20 A 38 38 0 0 1 50 80"
+        stroke="currentColor"
+        strokeWidth="6"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 50 20 A 38 38 0 0 0 50 80"
+        stroke="currentColor"
+        strokeWidth="6"
+        strokeLinecap="round"
+      />
+      {/* Outer focus ring */}
+      <circle
+        cx="50"
+        cy="50"
+        r="42"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeDasharray="4 8"
+        className="opacity-45"
+      />
+      {/* Center focus indicator */}
+      <circle cx="50" cy="50" r="7" fill="currentColor" />
+    </svg>
   );
 }
