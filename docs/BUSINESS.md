@@ -23,6 +23,13 @@ risk. This note sketches the path from B2G to B2B.
 - Explainability (transparent scoring, rule-based fallback, source citations) is
   a *requirement* in all four segments, not a nice-to-have.
 
+## Already prototyped: audience modes
+
+The dashboard now ships an **audience switcher** (Regulator / Bank compliance /
+Auditor) that reframes the *same* engine — copy, CTAs and emphasis change per
+unit (e.g. "Issue s.165 request" → "Draft remediation" → "Add to evidence
+pack"). This is the thin end of the per-segment productisation below.
+
 ## Product adaptations per segment
 
 - **Bring-your-own-data connectors** — ingest a firm's complaint export

@@ -35,6 +35,13 @@ The dashboard is a four-area workflow for a supervision team:
   engine selector on the Scoring page (plus the deterministic no-key fallback).
 - **Alert methodology reference** — "Why these alerts?" opens the exact
   thresholds and severity/priority formulas, sourced from the scoring engine.
+- **Audience modes** — a Regulator / Bank-compliance / Auditor view switcher that
+  reframes the same engine's copy, CTAs and emphasis (B2G → B2B).
+- **Customer-editable parameters** — persist tuned priority weights *and*
+  per-category regulatory-relevance priors; they take effect live across the
+  dashboard.
+- **Action Log** — every drafted-and-(simulated)-sent action is recorded and
+  browsable at `/outbox`.
 
 ## The pipeline (workflow)
 
@@ -92,6 +99,8 @@ ReguLens/
 | POST | `/api/draft-action` | draft a regulation-anchored information request for a recommended action |
 | POST | `/api/send-action` | record an action to the file-based outbox (**simulated send — no real email**) |
 | GET | `/api/outbox` | list items recorded to the simulated outbox |
+| GET·PUT·DELETE | `/api/weights` | get / persist / reset customer-tuned priority weights (applied live) |
+| GET·PUT·DELETE | `/api/config` | get / persist / reset per-category regulatory-relevance priors |
 
 ## Run it locally
 
