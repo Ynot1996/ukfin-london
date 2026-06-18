@@ -16,6 +16,10 @@ import json
 import os
 from typing import Optional
 
+from dotenv import load_dotenv
+
+load_dotenv()  # read backend/.env (keys, GEMINI_MODEL) before importing providers
+
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -26,7 +30,31 @@ import scoring
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DASHBOARD_PATH = os.path.join(HERE, "output", "dashboard.json")
+WEIGHTS_PATH = os.path.join(HERE, "output", "weights_config.json")
 NOT_BUILT_MSG = "Dashboard not built yet — run: python build_dashboard.py"
+
+
+def _saved_weights() -> Optional[dict]:
+    """Customer-tuned priority weights persisted via PUT /api/weights, if any."""
+    try:
+        with open(WEIGHTS_PATH, "r", encoding="utf-8") as fh:
+            w = json.load(fh)
+        return w if isinstance(w, dict) and w else None
+    except (OSError, json.JSONDecodeError):
+        return None
+
+
+def _apply_saved_weights(data: dict) -> dict:
+    """Re-rank the dashboard's clusters under any saved weights, so a customer's
+    tuned priorities take effect everywhere the clusters are served."""
+    w = _saved_weights()
+    if not w:
+        return data
+    total = sum(w.values()) or 1.0
+    w = {k: v / total for k, v in w.items()}
+    data["clusters"] = scoring.score_clusters(data.get("clusters", []), weights=w)
+    data["weights"] = w
+    return data
 
 app = FastAPI(title="ReguLens — Supervision Intelligence API", version="1.0.0")
 
@@ -61,8 +89,12 @@ def health():
 
 @app.get("/api/dashboard")
 def dashboard():
-    """Full dashboard payload: kpis, clusters (ranked, slim), alerts, trend."""
-    data = _load()
+    """Full dashboard payload: kpis, clusters (ranked, slim), alerts, trend.
+
+    If a customer has saved tuned priority weights (PUT /api/weights), the
+    clusters are re-ranked under them before being served.
+    """
+    data = _apply_saved_weights(_load())
     data["clusters"] = [_slim_cluster(c) for c in data.get("clusters", [])]
     return data
 
@@ -75,7 +107,7 @@ def clusters(
     limit: int = Query(50, ge=1, le=200),
 ):
     """Ranked clusters with optional filtering — backs the rankings + table."""
-    data = _load()
+    data = _apply_saved_weights(_load())
     items = [_slim_cluster(c) for c in data.get("clusters", [])]
     if severity:
         items = [c for c in items if c.get("severity_band", "").lower() == severity.lower()]
@@ -171,6 +203,45 @@ def rescore(weights: Weights):
              "priority": c["priority"], "priority_pct": c["priority_pct"],
              "rank": c["rank"]} for c in ranked]
     return {"weights": w, "clusters": slim}
+
+
+@app.get("/api/weights")
+def get_weights():
+    """The active priority weights: customer-saved if present, else the build
+    defaults. Backs the Scoring page's persisted-weights CRUD."""
+    saved = _saved_weights()
+    return {"weights": saved or _load().get("weights", scoring.DEFAULT_WEIGHTS),
+            "is_custom": saved is not None,
+            "defaults": scoring.DEFAULT_WEIGHTS}
+
+
+@app.put("/api/weights")
+def put_weights(weights: Weights):
+    """Persist customer-tuned priority weights so they take effect across the
+    dashboard. Sending all-zero / the defaults clears the override."""
+    w = weights.model_dump()
+    if sum(w.values()) <= 0 or w == scoring.DEFAULT_WEIGHTS:
+        try:
+            os.remove(WEIGHTS_PATH)
+        except OSError:
+            pass
+        return {"weights": scoring.DEFAULT_WEIGHTS, "is_custom": False,
+                "defaults": scoring.DEFAULT_WEIGHTS}
+    os.makedirs(os.path.dirname(WEIGHTS_PATH), exist_ok=True)
+    with open(WEIGHTS_PATH, "w", encoding="utf-8") as fh:
+        json.dump(w, fh)
+    return {"weights": w, "is_custom": True, "defaults": scoring.DEFAULT_WEIGHTS}
+
+
+@app.delete("/api/weights")
+def delete_weights():
+    """Reset to the default priority weights."""
+    try:
+        os.remove(WEIGHTS_PATH)
+    except OSError:
+        pass
+    return {"weights": scoring.DEFAULT_WEIGHTS, "is_custom": False,
+            "defaults": scoring.DEFAULT_WEIGHTS}
 
 
 @app.get("/api/alerts")

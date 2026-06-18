@@ -7,7 +7,7 @@ import LiveAlerts from "../components/LiveAlerts.jsx";
 import TrendChart from "../components/TrendChart.jsx";
 import ClusterDrawer from "../components/ClusterDrawer.jsx";
 import ErrorBoundary from "../components/ErrorBoundary.jsx";
-import { fmtTime } from "../ui.jsx";
+import Footer from "../components/Footer.jsx";
 
 export default function Overview() {
   const { data } = useDashboard();
@@ -48,17 +48,14 @@ export default function Overview() {
       </div>
 
       <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-12 min-h-[420px] lg:h-[400px]" data-tour="trend">
+        <div className="col-span-12" data-tour="trend">
           <ErrorBoundary>
             <TrendChart trend={data.trend} />
           </ErrorBoundary>
         </div>
       </div>
 
-      <footer className="text-xs text-muted text-center pt-4 pb-6 font-medium">
-        Source: {data.data_source} · adjudicator: {data.adjudicator} · generated {fmtTime(data.generated_at)} ·
-        weights {Object.entries(data.weights).map(([k, v]) => `${k} ${v}`).join(" / ")}
-      </footer>
+      <Footer />
 
       {selected && <ClusterDrawer cluster={selected} onClose={() => setSelectedId(null)} />}
     </div>

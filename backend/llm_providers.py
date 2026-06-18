@@ -30,6 +30,12 @@ import logging
 import os
 from typing import Dict, List, Optional
 
+try:  # Load backend/.env so keys/model are available to every entry point
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 logger = logging.getLogger("llm_providers")
 
 ANTHROPIC_MODEL = os.environ.get("REGUTRIAGE_LLM_MODEL", "claude-opus-4-8")

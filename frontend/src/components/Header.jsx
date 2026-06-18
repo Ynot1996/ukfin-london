@@ -83,7 +83,7 @@ export default function Header({ generatedAt }) {
           <HelpCircle className="w-4 h-4" strokeWidth={2} />
         </button>
 
-        <div className="hidden lg:flex flex-col text-[10px] font-mono">
+        <div className="hidden xl:flex flex-col text-[10px] font-mono">
           <span className="text-white/45 text-[9px] uppercase tracking-wider">datafeed</span>
           <span className="text-[#78ede7] font-semibold flex items-center gap-1">
             CFPB_LIVE
@@ -91,9 +91,9 @@ export default function Header({ generatedAt }) {
           </span>
         </div>
 
-        <div className="w-[1px] h-6 bg-white/15 hidden sm:block" />
+        <div className="w-[1px] h-6 bg-white/15 hidden lg:block" />
 
-        <div className="hidden sm:flex flex-col items-end text-right font-mono text-[10px]">
+        <div className="hidden lg:flex flex-col items-end text-right font-mono text-[10px]">
           <span className="text-white font-bold tracking-widest text-xs">{time || "--:--:--"}</span>
           <span className="text-white/50 text-[9px] mt-0.5">{dateStr}</span>
         </div>

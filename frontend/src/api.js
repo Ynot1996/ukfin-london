@@ -67,6 +67,25 @@ export function setAnalysisEngine(engine) {
   return postJSON("/api/analysis-config", { engine });
 }
 
+// Item 7b — persist customer-tuned priority weights (CRUD).
+export function fetchWeights() {
+  return getJSON("/api/weights");
+}
+export async function saveWeights(weights) {
+  const res = await fetch(`${API_BASE}/api/weights`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(weights),
+  });
+  if (!res.ok) throw new Error(`Save weights failed ${res.status}`);
+  return res.json();
+}
+export async function resetWeights() {
+  const res = await fetch(`${API_BASE}/api/weights`, { method: "DELETE" });
+  if (!res.ok) throw new Error(`Reset weights failed ${res.status}`);
+  return res.json();
+}
+
 // Item 6 — semi-automated supervisory actions (draft + simulated send).
 export function draftAction(cluster_id, action) {
   return postJSON("/api/draft-action", { cluster_id, action });

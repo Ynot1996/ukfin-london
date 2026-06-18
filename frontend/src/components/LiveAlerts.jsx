@@ -70,10 +70,9 @@ export default function LiveAlerts({ alerts }) {
           <button
             onClick={() => setShowMethodology(true)}
             title="Why these alerts? See the thresholds & formulas"
-            className="flex items-center gap-1 text-[11px] font-semibold text-muted hover:text-brand transition-colors"
+            className="flex items-center justify-center w-6 h-6 rounded-md text-muted hover:text-brand hover:bg-accent/40 transition-colors flex-shrink-0"
           >
-            <HelpCircle className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Why these alerts?</span>
+            <HelpCircle className="w-4 h-4" />
           </button>
         </div>
       }

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import { Lock, Unlock, RotateCcw, ArrowUp, ArrowDown, Minus, Info, Cpu, Check } from "lucide-react";
+import { Lock, Unlock, RotateCcw, ArrowUp, ArrowDown, Minus, Info, Cpu, Check, Save } from "lucide-react";
 import { useDashboard } from "../DataContext.jsx";
-import { rescore, fetchProviders, setAnalysisEngine } from "../api.js";
+import { rescore, fetchProviders, setAnalysisEngine, fetchWeights, saveWeights, resetWeights } from "../api.js";
 import { Panel, SeverityBadge } from "../ui.jsx";
 
 const ENGINES = [
@@ -95,6 +95,15 @@ export default function Scoring() {
   const [authed, setAuthed] = useState(false);
   const [passcode, setPasscode] = useState("");
   const [authError, setAuthError] = useState(false);
+  const [saveState, setSaveState] = useState("idle"); // idle | saving | saved
+  const [isCustom, setIsCustom] = useState(false);
+
+  // Load any persisted (customer-tuned) weights so the page reflects what's live.
+  useEffect(() => {
+    fetchWeights()
+      .then((r) => { if (r.weights) { setWeights(r.weights); setIsCustom(!!r.is_custom); } })
+      .catch(() => {});
+  }, []);
 
   const baselineRank = useMemo(() => {
     const m = {};
@@ -126,7 +135,18 @@ export default function Scoring() {
     }
   };
 
-  const reset = () => setWeights(data.weights);
+  const persist = () => {
+    setSaveState("saving");
+    saveWeights(weights)
+      .then((r) => { setIsCustom(!!r.is_custom); setSaveState("saved"); setTimeout(() => setSaveState("idle"), 2000); })
+      .catch(() => setSaveState("idle"));
+  };
+
+  const reset = () => {
+    resetWeights()
+      .then((r) => { setWeights(r.weights); setIsCustom(false); })
+      .catch(() => setWeights(data.weights));
+  };
 
   return (
     <div className="space-y-6">
@@ -186,13 +206,20 @@ export default function Scoring() {
               <p className="text-[11px] text-muted/60 mt-2">Demo passcode: <code className="text-brand">{DEMO_PASSCODE}</code></p>
             </div>
           ) : (
-            <div className="glass rounded-2xl p-4 border border-low/30 flex items-center justify-between">
+            <div className="glass rounded-2xl p-4 border border-low/30 flex flex-wrap items-center justify-between gap-2">
               <span className="flex items-center gap-2 text-low font-semibold text-sm">
                 <Unlock className="w-4 h-4" /> Editing unlocked
+                {isCustom && <span className="text-[10px] font-bold uppercase tracking-wider bg-brand/10 text-brand border border-brand/20 px-2 py-0.5 rounded-md">custom active</span>}
               </span>
-              <button onClick={reset} className="flex items-center gap-1.5 text-xs font-semibold text-muted hover:text-ink px-3 py-1.5 rounded-lg hover:bg-accent/40 transition-colors">
-                <RotateCcw className="w-3.5 h-3.5" /> Reset to default
-              </button>
+              <div className="flex items-center gap-2">
+                <button onClick={reset} className="flex items-center gap-1.5 text-xs font-semibold text-muted hover:text-ink px-3 py-1.5 rounded-lg hover:bg-accent/40 transition-colors">
+                  <RotateCcw className="w-3.5 h-3.5" /> Reset to default
+                </button>
+                <button onClick={persist} disabled={saveState === "saving"} className="flex items-center gap-1.5 text-xs font-semibold text-white bg-brand hover:bg-brand-dark px-3 py-1.5 rounded-lg transition-colors disabled:opacity-50">
+                  {saveState === "saved" ? <Check className="w-3.5 h-3.5" /> : <Save className="w-3.5 h-3.5" />}
+                  {saveState === "saving" ? "Saving…" : saveState === "saved" ? "Saved — live" : "Save as active"}
+                </button>
+              </div>
             </div>
           )}
 
