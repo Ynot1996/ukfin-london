@@ -81,11 +81,24 @@ app.add_middleware(
 )
 
 
+def _dashboard_path() -> str:
+    """Serve the snapshot that matches the selected analysis engine, so toggling
+    to Gemini shows its (different) AI-adjudication of the cases. Falls back to
+    the default score-built dashboard when an engine's snapshot isn't present."""
+    eng = llm_providers.resolve_engine()
+    if eng in ("gemini", "claude"):
+        alt = os.path.join(HERE, "output", f"dashboard.{eng}.json")
+        if os.path.exists(alt):
+            return alt
+    return DASHBOARD_PATH
+
+
 def _load() -> dict:
-    if not os.path.exists(DASHBOARD_PATH):
+    path = _dashboard_path()
+    if not os.path.exists(path):
         raise HTTPException(status_code=503, detail=NOT_BUILT_MSG)
     try:
-        with open(DASHBOARD_PATH, "r", encoding="utf-8") as fh:
+        with open(path, "r", encoding="utf-8") as fh:
             return json.load(fh)
     except (json.JSONDecodeError, OSError) as exc:
         raise HTTPException(status_code=500, detail=f"Could not read dashboard: {exc}")

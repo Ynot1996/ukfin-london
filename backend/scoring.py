@@ -246,7 +246,7 @@ def build_trend(clusters: List[Dict], window: int = 90) -> List[Dict]:
     return out
 
 
-def build_trend_from_records(clusters: List[Dict], window: int = 90) -> List[Dict]:
+def build_trend_from_records(clusters: List[Dict], window: int = 185) -> List[Dict]:
     """Per-day case volume (stacked by the owning cluster's severity band) built
     from the REAL per-complaint `case_records` dates — not the synthetic
     `daily_counts`. This keeps the trend chart consistent with the drill-down,

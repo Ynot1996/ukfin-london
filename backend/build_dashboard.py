@@ -37,7 +37,9 @@ import scoring
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_DIR = os.path.join(HERE, "output")
 RAW_CACHE = os.path.join(OUTPUT_DIR, "raw_cache.json")
-DASHBOARD_PATH = os.path.join(OUTPUT_DIR, "dashboard.json")
+# DASHBOARD_OUT lets a build write to an alternate file (e.g. dashboard.gemini.json
+# for the Gemini-adjudicated snapshot the API serves when that engine is selected).
+DASHBOARD_PATH = os.path.join(OUTPUT_DIR, os.environ.get("DASHBOARD_OUT", "dashboard.json"))
 
 USE_CACHE = os.environ.get("REFRESH", "0") != "1"
 MONTHS_BACK = int(os.environ.get("MONTHS_BACK", "6"))

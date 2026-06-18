@@ -215,13 +215,35 @@ def _adjudicate_llm(df: pd.DataFrame, max_candidates: int) -> pd.DataFrame:
 # Backend: Gemini adjudication
 # ---------------------------------------------------------------------------
 
-def _adjudicate_gemini(df: pd.DataFrame, max_candidates: int) -> pd.DataFrame:
-    """Per-candidate Google Gemini classification (JSON output).
+def _gemini_batch_prompt(rows) -> str:
+    """Build one prompt classifying a batch of candidates, indexed 0..N-1."""
+    lines = []
+    for i, (_, row) in enumerate(rows):
+        kws = ", ".join(row.get("matched_keywords") or []) or "(none)"
+        sigs = ", ".join(row.get("matched_signals") or []) or "(none)"
+        narrative = str(row.get("consumer_complaint_narrative") or "")[:700]
+        lines.append(
+            f"[{i}] product={row.get('product')} | issue={row.get('issue')} | "
+            f"keywords={kws} | signals={sigs} | likelihood={row.get('likelihood_tier')}\n"
+            f"narrative: \"{narrative}\""
+        )
+    body = "\n\n".join(lines)
+    return (
+        "Classify EACH complaint below. For every item return its index i, a "
+        "boolean ai_related, and a confidence in [0,1]. Return exactly one entry "
+        "per item, using the item's own index.\n\n" + body
+    )
 
-    Mirrors the LLM backend's contract but routes through llm_providers so the
-    Google SDK/key handling lives in one place. Falls back to the deterministic
-    score backend if Gemini is unavailable.
+
+def _adjudicate_gemini(df: pd.DataFrame, max_candidates: int) -> pd.DataFrame:
+    """Google Gemini classification, BATCHED to stay within rate/quota limits.
+
+    Sends GEMINI_ADJ_BATCH candidates per request (default 25), so ~5k
+    candidates become ~200 calls instead of ~5k. Falls back to the deterministic
+    score backend when Gemini is unavailable, and per-row to ai_related=False on
+    an unparseable batch. Routes through llm_providers for SDK/key handling.
     """
+    import time
     import llm_providers
 
     if not llm_providers.have_google():
@@ -234,23 +256,41 @@ def _adjudicate_gemini(df: pd.DataFrame, max_candidates: int) -> pd.DataFrame:
                     max_candidates, len(out))
         out = out.head(max_candidates).copy()
 
-    verdicts: List[dict] = []
-    for i, (_, row) in enumerate(out.iterrows(), start=1):
-        v = llm_providers.gemini_json(ADJUDICATION_SYSTEM + (
-            "\n\nReturn ONLY a JSON object: {\"ai_related\": bool, "
-            "\"confidence\": number in [0,1], \"rationale\": string}."),
-            _build_user_prompt(row), max_tokens=300)
-        if not v:
-            verdicts.append({"ai_related": False, "confidence": 0.0,
-                             "rationale": "gemini: no parseable verdict"})
-        else:
-            verdicts.append({
-                "ai_related": bool(v.get("ai_related", False)),
-                "confidence": float(max(0.0, min(1.0, v.get("confidence", 0.0)))),
-                "rationale": "gemini: " + str(v.get("rationale", "")).strip(),
-            })
-        if i % 25 == 0:
-            logger.info("  adjudicated %d/%d ...", i, len(out))
+    batch = int(os.environ.get("GEMINI_ADJ_BATCH", "25"))
+    throttle = float(os.environ.get("GEMINI_ADJ_THROTTLE", "0"))
+    system = ADJUDICATION_SYSTEM
+
+    rows = list(out.iterrows())
+    verdicts: List[dict] = [None] * len(rows)
+    for start in range(0, len(rows), batch):
+        chunk = rows[start:start + batch]
+        result = llm_providers.gemini_classify_batch(system, _gemini_batch_prompt(chunk),
+                                                     max_tokens=8192)
+        parsed = {}
+        if isinstance(result, list):
+            for v in result:
+                try:
+                    parsed[int(v["i"])] = v
+                except (KeyError, TypeError, ValueError):
+                    continue
+        for j in range(len(chunk)):
+            v = parsed.get(j)
+            if not v:
+                # Batch failed/omitted this row — fall back to the deterministic
+                # scorer for it rather than discarding it as not-AI.
+                _, row_j = chunk[j]
+                ok, conf, _ = _score_row(row_j)
+                verdicts[start + j] = {"ai_related": ok, "confidence": conf,
+                                       "rationale": "score (gemini fallback)"}
+            else:
+                verdicts[start + j] = {
+                    "ai_related": bool(v.get("ai_related", False)),
+                    "confidence": float(max(0.0, min(1.0, v.get("confidence", 0.0) or 0.0))),
+                    "rationale": "gemini batch verdict",
+                }
+        logger.info("  gemini adjudicated %d/%d ...", min(start + batch, len(rows)), len(rows))
+        if throttle:
+            time.sleep(throttle)
 
     out["ai_related"] = [v["ai_related"] for v in verdicts]
     out["confidence"] = [round(v["confidence"], 2) for v in verdicts]

@@ -23930,6 +23930,766 @@
   ],
   "trend": [
     {
+      "date": "2025-11-24",
+      "label": "Nov 24",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2025-11-25",
+      "label": "Nov 25",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2025-11-26",
+      "label": "Nov 26",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2025-11-27",
+      "label": "Nov 27",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2025-11-28",
+      "label": "Nov 28",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2025-11-29",
+      "label": "Nov 29",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2025-11-30",
+      "label": "Nov 30",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2025-12-01",
+      "label": "Dec 01",
+      "critical": 2,
+      "high": 22,
+      "medium": 15,
+      "low": 4
+    },
+    {
+      "date": "2025-12-02",
+      "label": "Dec 02",
+      "critical": 2,
+      "high": 10,
+      "medium": 10,
+      "low": 4
+    },
+    {
+      "date": "2025-12-03",
+      "label": "Dec 03",
+      "critical": 5,
+      "high": 20,
+      "medium": 7,
+      "low": 2
+    },
+    {
+      "date": "2025-12-04",
+      "label": "Dec 04",
+      "critical": 1,
+      "high": 15,
+      "medium": 11,
+      "low": 5
+    },
+    {
+      "date": "2025-12-05",
+      "label": "Dec 05",
+      "critical": 0,
+      "high": 3,
+      "medium": 2,
+      "low": 5
+    },
+    {
+      "date": "2025-12-06",
+      "label": "Dec 06",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2025-12-07",
+      "label": "Dec 07",
+      "critical": 0,
+      "high": 4,
+      "medium": 1,
+      "low": 1
+    },
+    {
+      "date": "2025-12-08",
+      "label": "Dec 08",
+      "critical": 2,
+      "high": 13,
+      "medium": 9,
+      "low": 15
+    },
+    {
+      "date": "2025-12-09",
+      "label": "Dec 09",
+      "critical": 2,
+      "high": 16,
+      "medium": 5,
+      "low": 21
+    },
+    {
+      "date": "2025-12-10",
+      "label": "Dec 10",
+      "critical": 0,
+      "high": 7,
+      "medium": 2,
+      "low": 2
+    },
+    {
+      "date": "2025-12-11",
+      "label": "Dec 11",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2025-12-12",
+      "label": "Dec 12",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2025-12-13",
+      "label": "Dec 13",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2025-12-14",
+      "label": "Dec 14",
+      "critical": 1,
+      "high": 3,
+      "medium": 4,
+      "low": 10
+    },
+    {
+      "date": "2025-12-15",
+      "label": "Dec 15",
+      "critical": 2,
+      "high": 19,
+      "medium": 5,
+      "low": 20
+    },
+    {
+      "date": "2025-12-16",
+      "label": "Dec 16",
+      "critical": 2,
+      "high": 17,
+      "medium": 5,
+      "low": 10
+    },
+    {
+      "date": "2025-12-17",
+      "label": "Dec 17",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2025-12-18",
+      "label": "Dec 18",
+      "critical": 1,
+      "high": 5,
+      "medium": 5,
+      "low": 9
+    },
+    {
+      "date": "2025-12-19",
+      "label": "Dec 19",
+      "critical": 1,
+      "high": 4,
+      "medium": 7,
+      "low": 1
+    },
+    {
+      "date": "2025-12-20",
+      "label": "Dec 20",
+      "critical": 0,
+      "high": 0,
+      "medium": 1,
+      "low": 0
+    },
+    {
+      "date": "2025-12-21",
+      "label": "Dec 21",
+      "critical": 0,
+      "high": 2,
+      "medium": 4,
+      "low": 10
+    },
+    {
+      "date": "2025-12-22",
+      "label": "Dec 22",
+      "critical": 3,
+      "high": 18,
+      "medium": 9,
+      "low": 14
+    },
+    {
+      "date": "2025-12-23",
+      "label": "Dec 23",
+      "critical": 3,
+      "high": 15,
+      "medium": 10,
+      "low": 11
+    },
+    {
+      "date": "2025-12-24",
+      "label": "Dec 24",
+      "critical": 1,
+      "high": 6,
+      "medium": 5,
+      "low": 15
+    },
+    {
+      "date": "2025-12-25",
+      "label": "Dec 25",
+      "critical": 0,
+      "high": 1,
+      "medium": 1,
+      "low": 3
+    },
+    {
+      "date": "2025-12-26",
+      "label": "Dec 26",
+      "critical": 4,
+      "high": 10,
+      "medium": 5,
+      "low": 9
+    },
+    {
+      "date": "2025-12-27",
+      "label": "Dec 27",
+      "critical": 0,
+      "high": 11,
+      "medium": 5,
+      "low": 3
+    },
+    {
+      "date": "2025-12-28",
+      "label": "Dec 28",
+      "critical": 2,
+      "high": 6,
+      "medium": 6,
+      "low": 7
+    },
+    {
+      "date": "2025-12-29",
+      "label": "Dec 29",
+      "critical": 2,
+      "high": 15,
+      "medium": 13,
+      "low": 10
+    },
+    {
+      "date": "2025-12-30",
+      "label": "Dec 30",
+      "critical": 1,
+      "high": 9,
+      "medium": 3,
+      "low": 4
+    },
+    {
+      "date": "2025-12-31",
+      "label": "Dec 31",
+      "critical": 1,
+      "high": 10,
+      "medium": 2,
+      "low": 4
+    },
+    {
+      "date": "2026-01-01",
+      "label": "Jan 01",
+      "critical": 0,
+      "high": 3,
+      "medium": 1,
+      "low": 2
+    },
+    {
+      "date": "2026-01-02",
+      "label": "Jan 02",
+      "critical": 3,
+      "high": 1,
+      "medium": 6,
+      "low": 6
+    },
+    {
+      "date": "2026-01-03",
+      "label": "Jan 03",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2026-01-04",
+      "label": "Jan 04",
+      "critical": 0,
+      "high": 0,
+      "medium": 1,
+      "low": 1
+    },
+    {
+      "date": "2026-01-05",
+      "label": "Jan 05",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 1
+    },
+    {
+      "date": "2026-01-06",
+      "label": "Jan 06",
+      "critical": 4,
+      "high": 2,
+      "medium": 0,
+      "low": 5
+    },
+    {
+      "date": "2026-01-07",
+      "label": "Jan 07",
+      "critical": 2,
+      "high": 1,
+      "medium": 0,
+      "low": 4
+    },
+    {
+      "date": "2026-01-08",
+      "label": "Jan 08",
+      "critical": 1,
+      "high": 5,
+      "medium": 1,
+      "low": 4
+    },
+    {
+      "date": "2026-01-09",
+      "label": "Jan 09",
+      "critical": 2,
+      "high": 2,
+      "medium": 2,
+      "low": 6
+    },
+    {
+      "date": "2026-01-10",
+      "label": "Jan 10",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2026-01-11",
+      "label": "Jan 11",
+      "critical": 3,
+      "high": 0,
+      "medium": 0,
+      "low": 1
+    },
+    {
+      "date": "2026-01-12",
+      "label": "Jan 12",
+      "critical": 0,
+      "high": 3,
+      "medium": 1,
+      "low": 1
+    },
+    {
+      "date": "2026-01-13",
+      "label": "Jan 13",
+      "critical": 5,
+      "high": 0,
+      "medium": 4,
+      "low": 6
+    },
+    {
+      "date": "2026-01-14",
+      "label": "Jan 14",
+      "critical": 0,
+      "high": 5,
+      "medium": 3,
+      "low": 3
+    },
+    {
+      "date": "2026-01-15",
+      "label": "Jan 15",
+      "critical": 0,
+      "high": 0,
+      "medium": 1,
+      "low": 0
+    },
+    {
+      "date": "2026-01-16",
+      "label": "Jan 16",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2026-01-17",
+      "label": "Jan 17",
+      "critical": 0,
+      "high": 1,
+      "medium": 1,
+      "low": 0
+    },
+    {
+      "date": "2026-01-18",
+      "label": "Jan 18",
+      "critical": 1,
+      "high": 0,
+      "medium": 0,
+      "low": 1
+    },
+    {
+      "date": "2026-01-19",
+      "label": "Jan 19",
+      "critical": 0,
+      "high": 1,
+      "medium": 1,
+      "low": 4
+    },
+    {
+      "date": "2026-01-20",
+      "label": "Jan 20",
+      "critical": 2,
+      "high": 3,
+      "medium": 1,
+      "low": 3
+    },
+    {
+      "date": "2026-01-21",
+      "label": "Jan 21",
+      "critical": 0,
+      "high": 5,
+      "medium": 3,
+      "low": 3
+    },
+    {
+      "date": "2026-01-22",
+      "label": "Jan 22",
+      "critical": 0,
+      "high": 2,
+      "medium": 5,
+      "low": 2
+    },
+    {
+      "date": "2026-01-23",
+      "label": "Jan 23",
+      "critical": 2,
+      "high": 4,
+      "medium": 1,
+      "low": 1
+    },
+    {
+      "date": "2026-01-24",
+      "label": "Jan 24",
+      "critical": 1,
+      "high": 5,
+      "medium": 2,
+      "low": 3
+    },
+    {
+      "date": "2026-01-25",
+      "label": "Jan 25",
+      "critical": 0,
+      "high": 7,
+      "medium": 1,
+      "low": 3
+    },
+    {
+      "date": "2026-01-26",
+      "label": "Jan 26",
+      "critical": 1,
+      "high": 2,
+      "medium": 3,
+      "low": 5
+    },
+    {
+      "date": "2026-01-27",
+      "label": "Jan 27",
+      "critical": 0,
+      "high": 7,
+      "medium": 1,
+      "low": 5
+    },
+    {
+      "date": "2026-01-28",
+      "label": "Jan 28",
+      "critical": 3,
+      "high": 7,
+      "medium": 3,
+      "low": 2
+    },
+    {
+      "date": "2026-01-29",
+      "label": "Jan 29",
+      "critical": 1,
+      "high": 5,
+      "medium": 6,
+      "low": 3
+    },
+    {
+      "date": "2026-01-30",
+      "label": "Jan 30",
+      "critical": 3,
+      "high": 6,
+      "medium": 4,
+      "low": 3
+    },
+    {
+      "date": "2026-01-31",
+      "label": "Jan 31",
+      "critical": 0,
+      "high": 2,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2026-02-01",
+      "label": "Feb 01",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2026-02-02",
+      "label": "Feb 02",
+      "critical": 2,
+      "high": 1,
+      "medium": 1,
+      "low": 0
+    },
+    {
+      "date": "2026-02-03",
+      "label": "Feb 03",
+      "critical": 2,
+      "high": 3,
+      "medium": 1,
+      "low": 0
+    },
+    {
+      "date": "2026-02-04",
+      "label": "Feb 04",
+      "critical": 0,
+      "high": 3,
+      "medium": 1,
+      "low": 1
+    },
+    {
+      "date": "2026-02-05",
+      "label": "Feb 05",
+      "critical": 0,
+      "high": 2,
+      "medium": 2,
+      "low": 3
+    },
+    {
+      "date": "2026-02-06",
+      "label": "Feb 06",
+      "critical": 0,
+      "high": 2,
+      "medium": 0,
+      "low": 1
+    },
+    {
+      "date": "2026-02-07",
+      "label": "Feb 07",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2026-02-08",
+      "label": "Feb 08",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 1
+    },
+    {
+      "date": "2026-02-09",
+      "label": "Feb 09",
+      "critical": 3,
+      "high": 2,
+      "medium": 2,
+      "low": 0
+    },
+    {
+      "date": "2026-02-10",
+      "label": "Feb 10",
+      "critical": 0,
+      "high": 1,
+      "medium": 1,
+      "low": 0
+    },
+    {
+      "date": "2026-02-11",
+      "label": "Feb 11",
+      "critical": 1,
+      "high": 1,
+      "medium": 0,
+      "low": 1
+    },
+    {
+      "date": "2026-02-12",
+      "label": "Feb 12",
+      "critical": 1,
+      "high": 2,
+      "medium": 0,
+      "low": 2
+    },
+    {
+      "date": "2026-02-13",
+      "label": "Feb 13",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 1
+    },
+    {
+      "date": "2026-02-14",
+      "label": "Feb 14",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "date": "2026-02-15",
+      "label": "Feb 15",
+      "critical": 1,
+      "high": 2,
+      "medium": 0,
+      "low": 1
+    },
+    {
+      "date": "2026-02-16",
+      "label": "Feb 16",
+      "critical": 1,
+      "high": 0,
+      "medium": 1,
+      "low": 1
+    },
+    {
+      "date": "2026-02-17",
+      "label": "Feb 17",
+      "critical": 0,
+      "high": 0,
+      "medium": 1,
+      "low": 1
+    },
+    {
+      "date": "2026-02-18",
+      "label": "Feb 18",
+      "critical": 1,
+      "high": 1,
+      "medium": 2,
+      "low": 4
+    },
+    {
+      "date": "2026-02-19",
+      "label": "Feb 19",
+      "critical": 2,
+      "high": 4,
+      "medium": 3,
+      "low": 10
+    },
+    {
+      "date": "2026-02-20",
+      "label": "Feb 20",
+      "critical": 2,
+      "high": 2,
+      "medium": 1,
+      "low": 0
+    },
+    {
+      "date": "2026-02-21",
+      "label": "Feb 21",
+      "critical": 1,
+      "high": 0,
+      "medium": 1,
+      "low": 2
+    },
+    {
+      "date": "2026-02-22",
+      "label": "Feb 22",
+      "critical": 2,
+      "high": 4,
+      "medium": 1,
+      "low": 2
+    },
+    {
+      "date": "2026-02-23",
+      "label": "Feb 23",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 1
+    },
+    {
+      "date": "2026-02-24",
+      "label": "Feb 24",
+      "critical": 1,
+      "high": 6,
+      "medium": 1,
+      "low": 2
+    },
+    {
+      "date": "2026-02-25",
+      "label": "Feb 25",
+      "critical": 0,
+      "high": 1,
+      "medium": 2,
+      "low": 2
+    },
+    {
+      "date": "2026-02-26",
+      "label": "Feb 26",
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    {
       "date": "2026-02-27",
       "label": "Feb 27",
       "critical": 0,

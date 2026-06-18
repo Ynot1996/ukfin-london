@@ -130,11 +130,13 @@ def drilldown(dashboard: Dict, date: str, engine: Optional[str] = None) -> Dict:
     firm_str = ", ".join(c["name"] for c in top_companies[:3]) or "consumer-finance firms"
     issue_str = ", ".join(i["name"] for i in top_issues[:3]) or "automated decisions"
     query = (
-        f"On or around {date}, was there any news about {firm_str} relating to "
-        f"{issue_str}, automated/algorithmic decision-making, account closures, "
-        f"or AI in consumer finance? In 3-4 sentences summarise what may have "
-        f"driven a rise in consumer complaints that day and how a UK financial "
-        f"regulator (FCA) should respond. Cite real sources."
+        f"Search the web for news on or around {date} about {firm_str} relating "
+        f"to {issue_str}, automated/algorithmic decision-making, account closures, "
+        f"debanking, or AI in consumer finance. Then, in 4-6 complete sentences "
+        f"(finish every sentence), summarise what may have driven a rise in "
+        f"consumer complaints around that date and how a UK financial regulator "
+        f"(FCA) should respond. Base it on real, recent sources and cite them — "
+        f"always perform a web search even if you think you know the answer."
     )
     research = llm_providers.web_research(query, engine=engine)
     if research:

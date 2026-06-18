@@ -8,12 +8,13 @@ const TIMEFRAMES = [
   { label: "7D", days: 7 },
   { label: "30D", days: 30 },
   { label: "90D", days: 90 },
+  { label: "6M", days: 185 },
 ];
 
 const delay = (ms) => new Promise((r) => setTimeout(r, ms));
 
 export default function TrendChart({ trend }) {
-  const [selectedDays, setSelectedDays] = useState(30);
+  const [selectedDays, setSelectedDays] = useState(185);
   const [selectedPoint, setSelectedPoint] = useState(null);
   const [loading, setLoading] = useState(false);
   const [logs, setLogs] = useState([]);

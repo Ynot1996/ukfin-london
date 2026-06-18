@@ -122,6 +122,64 @@ def resolve_engine(engine: Optional[str] = None) -> str:
 # Gemini structured JSON (best effort)
 # ---------------------------------------------------------------------------
 
+def gemini_classify_batch(system: str, user: str, max_tokens: int = 2048) -> Optional[list]:
+    """Classify a batch of items with a schema-enforced response, guaranteeing
+    valid JSON. Returns a list of {i, ai_related, confidence} dicts, or None."""
+    if not have_google():
+        return None
+    try:
+        from google import genai
+        from google.genai import types
+        from pydantic import BaseModel
+
+        class Verdict(BaseModel):
+            i: int
+            ai_related: bool
+            confidence: float
+
+        import time
+
+        client = genai.Client(api_key=google_key())
+        cfg = types.GenerateContentConfig(
+            system_instruction=system,
+            response_mime_type="application/json",
+            response_schema=list[Verdict],
+            max_output_tokens=max_tokens,
+            temperature=0.1,
+        )
+        # 2.5-flash is a thinking model; thinking tokens consume the output
+        # budget and truncate the JSON. Disable it for this deterministic task.
+        try:
+            cfg.thinking_config = types.ThinkingConfig(thinking_budget=0)
+        except Exception:  # noqa: BLE001 — older SDKs lack ThinkingConfig
+            pass
+
+        # Free-tier 2.5-flash frequently returns transient 503 ("high demand")
+        # and 429; retry with exponential backoff so a build isn't decimated.
+        last_exc = None
+        for attempt in range(5):
+            try:
+                resp = client.models.generate_content(model=GEMINI_MODEL, contents=user, config=cfg)
+                parsed = getattr(resp, "parsed", None)
+                if parsed:
+                    return [{"i": v.i, "ai_related": v.ai_related, "confidence": v.confidence}
+                            for v in parsed]
+                return json.loads(resp.text)
+            except Exception as exc:  # noqa: BLE001
+                last_exc = exc
+                msg = str(exc)
+                transient = any(s in msg for s in ("503", "UNAVAILABLE", "429",
+                                                   "RESOURCE_EXHAUSTED", "overloaded", "high demand"))
+                if not transient or attempt == 4:
+                    break
+                time.sleep(2 ** attempt * 2)  # 2,4,8,16s
+        logger.warning("gemini_classify_batch failed: %s", last_exc)
+        return None
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("gemini_classify_batch failed (setup): %s", exc)
+        return None
+
+
 def gemini_json(system: str, user: str, max_tokens: int = 1200) -> Optional[dict]:
     """Ask Gemini for a JSON object. Returns the parsed dict, or None on any
     failure (missing key/SDK, network error, unparseable output)."""
@@ -153,7 +211,7 @@ def gemini_json(system: str, user: str, max_tokens: int = 1200) -> Optional[dict
 # ---------------------------------------------------------------------------
 
 def web_research(query: str, engine: Optional[str] = None,
-                 max_tokens: int = 900) -> Optional[Dict]:
+                 max_tokens: int = 2048) -> Optional[Dict]:
     """
     Run a grounded web search for `query` using the resolved provider and return
     {"narrative": str, "news": [{"headline","url","source"}], "provider": str}.
