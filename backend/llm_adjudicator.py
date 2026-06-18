@@ -289,6 +289,12 @@ def _adjudicate_gemini(df: pd.DataFrame, max_candidates: int) -> pd.DataFrame:
     logger.info("Gemini adjudication: %d cached, %d pending (of %d).",
                 len(rows) - len(pending), len(pending), len(rows))
 
+    # GEMINI_NO_FETCH=1 → assemble from the cache only (no API calls); pending
+    # rows use the deterministic fallback. Lets us build a snapshot instantly
+    # from whatever's cached when the daily quota is spent.
+    if os.environ.get("GEMINI_NO_FETCH") == "1":
+        pending = []
+
     for start in range(0, len(pending), batch):
         chunk = pending[start:start + batch]
         result = llm_providers.gemini_classify_batch(system, _gemini_batch_prompt(chunk),
