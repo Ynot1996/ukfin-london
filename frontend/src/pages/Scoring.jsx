@@ -73,7 +73,7 @@ const ENGINES = [
   { key: "gemini", label: "Gemini", desc: "Google Gemini reasoning." },
 ];
 
-function AnalysisEngineCard() {
+function AnalysisEngineCard({ onEngineChange }) {
   const [status, setStatus] = useState(null);
   const [saving, setSaving] = useState(null);
 
@@ -84,7 +84,7 @@ function AnalysisEngineCard() {
   const choose = (engine) => {
     setSaving(engine);
     setAnalysisEngine(engine)
-      .then(setStatus)
+      .then((s) => { setStatus(s); onEngineChange && onEngineChange(); })
       .catch(() => {})
       .finally(() => setSaving(null));
   };
@@ -151,7 +151,7 @@ const DIMENSIONS = [
 const DEMO_PASSCODE = "fca-admin";
 
 export default function Scoring() {
-  const { data } = useDashboard();
+  const { data, refresh } = useDashboard();
   const [weights, setWeights] = useState(data.weights);
   const [ranked, setRanked] = useState(null);
   const [authed, setAuthed] = useState(false);
@@ -237,7 +237,10 @@ export default function Scoring() {
         </p>
       </div>
 
-      <AnalysisEngineCard />
+      <AnalysisEngineCard onEngineChange={() => {
+        refresh();
+        rescore(weights).then((r) => setRanked(r.clusters)).catch(() => {});
+      }} />
 
       <div className="grid grid-cols-12 gap-6">
         {/* Sliders */}

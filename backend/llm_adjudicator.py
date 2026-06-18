@@ -235,13 +235,34 @@ def _gemini_batch_prompt(rows) -> str:
     )
 
 
-def _adjudicate_gemini(df: pd.DataFrame, max_candidates: int) -> pd.DataFrame:
-    """Google Gemini classification, BATCHED to stay within rate/quota limits.
+_VERDICT_CACHE = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                              "output", "gemini_verdicts.json")
 
-    Sends GEMINI_ADJ_BATCH candidates per request (default 25), so ~5k
-    candidates become ~200 calls instead of ~5k. Falls back to the deterministic
-    score backend when Gemini is unavailable, and per-row to ai_related=False on
-    an unparseable batch. Routes through llm_providers for SDK/key handling.
+
+def _load_verdict_cache() -> dict:
+    import json
+    try:
+        with open(_VERDICT_CACHE, "r", encoding="utf-8") as fh:
+            return json.load(fh)
+    except (OSError, ValueError):
+        return {}
+
+
+def _save_verdict_cache(cache: dict) -> None:
+    import json
+    os.makedirs(os.path.dirname(_VERDICT_CACHE), exist_ok=True)
+    with open(_VERDICT_CACHE, "w", encoding="utf-8") as fh:
+        json.dump(cache, fh)
+
+
+def _adjudicate_gemini(df: pd.DataFrame, max_candidates: int) -> pd.DataFrame:
+    """Google Gemini classification, BATCHED and RESUMABLE.
+
+    Each candidate's verdict is cached to output/gemini_verdicts.json keyed by
+    complaint_id, and saved after every batch. So if the free-tier key 429s
+    mid-build, progress is kept — re-running only adjudicates the candidates that
+    aren't cached yet, until the whole set is done. Rows still missing at the end
+    of a run fall back to the deterministic scorer so a partial build is sane.
     """
     import time
     import llm_providers
@@ -256,14 +277,20 @@ def _adjudicate_gemini(df: pd.DataFrame, max_candidates: int) -> pd.DataFrame:
                     max_candidates, len(out))
         out = out.head(max_candidates).copy()
 
-    batch = int(os.environ.get("GEMINI_ADJ_BATCH", "25"))
+    batch = int(os.environ.get("GEMINI_ADJ_BATCH", "40"))
     throttle = float(os.environ.get("GEMINI_ADJ_THROTTLE", "0"))
     system = ADJUDICATION_SYSTEM
+    cache = _load_verdict_cache()
 
     rows = list(out.iterrows())
-    verdicts: List[dict] = [None] * len(rows)
-    for start in range(0, len(rows), batch):
-        chunk = rows[start:start + batch]
+    # Only call Gemini for candidates we don't already have a cached verdict for.
+    pending = [(idx, row) for idx, row in rows
+               if str(row.get("complaint_id")) not in cache]
+    logger.info("Gemini adjudication: %d cached, %d pending (of %d).",
+                len(rows) - len(pending), len(pending), len(rows))
+
+    for start in range(0, len(pending), batch):
+        chunk = pending[start:start + batch]
         result = llm_providers.gemini_classify_batch(system, _gemini_batch_prompt(chunk),
                                                      max_tokens=8192)
         parsed = {}
@@ -273,31 +300,47 @@ def _adjudicate_gemini(df: pd.DataFrame, max_candidates: int) -> pd.DataFrame:
                     parsed[int(v["i"])] = v
                 except (KeyError, TypeError, ValueError):
                     continue
+        got = 0
         for j in range(len(chunk)):
             v = parsed.get(j)
             if not v:
-                # Batch failed/omitted this row — fall back to the deterministic
-                # scorer for it rather than discarding it as not-AI.
-                _, row_j = chunk[j]
-                ok, conf, _ = _score_row(row_j)
-                verdicts[start + j] = {"ai_related": ok, "confidence": conf,
-                                       "rationale": "score (gemini fallback)"}
-            else:
-                verdicts[start + j] = {
-                    "ai_related": bool(v.get("ai_related", False)),
-                    "confidence": float(max(0.0, min(1.0, v.get("confidence", 0.0) or 0.0))),
-                    "rationale": "gemini batch verdict",
-                }
-        logger.info("  gemini adjudicated %d/%d ...", min(start + batch, len(rows)), len(rows))
+                continue  # leave uncached so a later run retries it
+            cid = str(chunk[j][1].get("complaint_id"))
+            cache[cid] = {
+                "ai_related": bool(v.get("ai_related", False)),
+                "confidence": float(max(0.0, min(1.0, v.get("confidence", 0.0) or 0.0))),
+            }
+            got += 1
+        if got:
+            _save_verdict_cache(cache)  # persist progress after every batch
+        logger.info("  gemini batch %d-%d: cached %d/%d (total cached %d/%d)",
+                    start, start + len(chunk), got, len(chunk),
+                    sum(1 for _, r in rows if str(r.get("complaint_id")) in cache), len(rows))
         if throttle:
             time.sleep(throttle)
 
-    out["ai_related"] = [v["ai_related"] for v in verdicts]
-    out["confidence"] = [round(v["confidence"], 2) for v in verdicts]
-    out["rationale"] = [v["rationale"] for v in verdicts]
+    # Assemble verdicts: cached (gemini) where present, deterministic fallback else.
+    ai, conf, rat = [], [], []
+    n_fallback = 0
+    for _, row in rows:
+        cid = str(row.get("complaint_id"))
+        cv = cache.get(cid)
+        if cv:
+            ai.append(bool(cv["ai_related"]))
+            conf.append(round(float(cv["confidence"]), 2))
+            rat.append("gemini")
+        else:
+            ok, sc, _ = _score_row(row)
+            ai.append(ok); conf.append(sc); rat.append("score (gemini pending)")
+            n_fallback += 1
+
+    out["ai_related"] = ai
+    out["confidence"] = conf
+    out["rationale"] = rat
     out["adjudicator"] = "gemini"
-    logger.info("Gemini adjudication: %d/%d confirmed AI-related.",
-                int(out["ai_related"].sum()), len(out))
+    logger.info("Gemini adjudication: %d/%d confirmed AI-related (%d still pending "
+                "→ score fallback; re-run to complete).",
+                int(sum(ai)), len(out), n_fallback)
     return out
 
 
