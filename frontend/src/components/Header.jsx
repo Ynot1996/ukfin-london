@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { LayoutDashboard, Boxes, FolderSearch, SlidersHorizontal } from "lucide-react";
+import { LayoutDashboard, Boxes, FolderSearch, SlidersHorizontal, HelpCircle } from "lucide-react";
 import reguLensLogo from "../ReguLensLogo.png";
 
 const NAV = [
@@ -30,7 +30,7 @@ export default function Header({ generatedAt }) {
     : "—";
 
   return (
-    <header className="h-16 flex items-center px-6 gap-6 flex-shrink-0 bg-[#384250] text-[#c7e6e5] border-b border-[#0c5c63]/40 z-30 relative overflow-hidden select-none">
+    <header className="h-16 flex items-center px-3 sm:px-6 gap-3 sm:gap-6 flex-shrink-0 bg-[#384250] text-[#c7e6e5] border-b border-[#0c5c63]/40 z-30 relative overflow-hidden select-none">
       {/* HUD scanning swipe line inside the header bottom */}
       <div className="absolute bottom-0 left-0 w-full h-[1.5px] bg-gradient-to-r from-transparent via-[#78ede7]/50 to-transparent animate-[shimmer_4s_linear_infinite]" />
 
@@ -54,7 +54,7 @@ export default function Header({ generatedAt }) {
       </div>
 
       {/* Center section: primary navigation */}
-      <nav className="flex items-center gap-1 border-l border-white/15 pl-6 ml-2">
+      <nav data-tour="nav" className="flex items-center gap-1 border-l border-white/15 pl-3 sm:pl-6 sm:ml-2 min-w-0 overflow-x-auto no-scrollbar">
         {NAV.map(({ to, label, Icon }) => (
           <NavLink
             key={to}
@@ -73,8 +73,16 @@ export default function Header({ generatedAt }) {
         ))}
       </nav>
 
-      {/* Right section: datafeed indicator + clock */}
-      <div className="ml-auto flex items-center gap-6">
+      {/* Right section: tour replay + datafeed indicator + clock */}
+      <div className="ml-auto flex items-center gap-3 sm:gap-6 flex-shrink-0">
+        <button
+          onClick={() => window.dispatchEvent(new Event("regulens:start-tour"))}
+          title="Replay the guided tour"
+          className="flex items-center justify-center w-8 h-8 rounded-lg border border-[#7accc9]/25 text-[#c7e6e5]/80 hover:text-white hover:border-[#78ede7]/60 hover:bg-white/5 transition-all"
+        >
+          <HelpCircle className="w-4 h-4" strokeWidth={2} />
+        </button>
+
         <div className="hidden lg:flex flex-col text-[10px] font-mono">
           <span className="text-white/45 text-[9px] uppercase tracking-wider">datafeed</span>
           <span className="text-[#78ede7] font-semibold flex items-center gap-1">

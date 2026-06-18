@@ -28,17 +28,19 @@ export default function Overview() {
 
   return (
     <div className="space-y-6">
-      <ErrorBoundary>
-        <KpiStrip kpis={data.kpis} onKpiClick={handleKpiClick} />
-      </ErrorBoundary>
+      <div data-tour="kpis">
+        <ErrorBoundary>
+          <KpiStrip kpis={data.kpis} onKpiClick={handleKpiClick} />
+        </ErrorBoundary>
+      </div>
 
       <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-12 lg:col-span-6" style={{ height: "560px" }}>
+        <div className="col-span-12 lg:col-span-6 h-[460px] lg:h-[560px]" data-tour="clusters">
           <ErrorBoundary>
             <ClusterRankings clusters={data.clusters} selectedId={selectedId} onSelect={setSelectedId} />
           </ErrorBoundary>
         </div>
-        <div className="col-span-12 lg:col-span-6" style={{ height: "560px" }}>
+        <div className="col-span-12 lg:col-span-6 h-[460px] lg:h-[560px]" data-tour="alerts">
           <ErrorBoundary>
             <LiveAlerts alerts={data.alerts} />
           </ErrorBoundary>
@@ -46,7 +48,7 @@ export default function Overview() {
       </div>
 
       <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-12" style={{ height: "400px" }}>
+        <div className="col-span-12 min-h-[420px] lg:h-[400px]" data-tour="trend">
           <ErrorBoundary>
             <TrendChart trend={data.trend} />
           </ErrorBoundary>

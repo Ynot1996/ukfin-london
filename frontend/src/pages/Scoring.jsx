@@ -1,8 +1,82 @@
 import { useEffect, useMemo, useState } from "react";
-import { Lock, Unlock, RotateCcw, ArrowUp, ArrowDown, Minus, Info } from "lucide-react";
+import { Lock, Unlock, RotateCcw, ArrowUp, ArrowDown, Minus, Info, Cpu, Check } from "lucide-react";
 import { useDashboard } from "../DataContext.jsx";
-import { rescore } from "../api.js";
+import { rescore, fetchProviders, setAnalysisEngine } from "../api.js";
 import { Panel, SeverityBadge } from "../ui.jsx";
+
+const ENGINES = [
+  { key: "auto", label: "Auto", desc: "Pick the best available provider." },
+  { key: "score", label: "Deterministic", desc: "No LLM — rule-based, fully auditable." },
+  { key: "claude", label: "Claude", desc: "Anthropic Claude reasoning." },
+  { key: "gemini", label: "Gemini", desc: "Google Gemini reasoning." },
+];
+
+function AnalysisEngineCard() {
+  const [status, setStatus] = useState(null);
+  const [saving, setSaving] = useState(null);
+
+  useEffect(() => {
+    fetchProviders().then(setStatus).catch(() => setStatus(null));
+  }, []);
+
+  const choose = (engine) => {
+    setSaving(engine);
+    setAnalysisEngine(engine)
+      .then(setStatus)
+      .catch(() => {})
+      .finally(() => setSaving(null));
+  };
+
+  const selected = status?.selected || "auto";
+
+  return (
+    <div className="glass rounded-2xl p-6">
+      <div className="text-xs uppercase tracking-wider text-muted mb-1 flex items-center gap-1.5">
+        <Cpu className="w-3.5 h-3.5" /> Analysis engine
+      </div>
+      <p className="text-xs text-muted mb-4">
+        Which model powers the <span className="font-semibold text-ink">live</span> AI features —
+        the chart drill-down and action drafting. (The prebuilt dashboard's adjudication is set at
+        build time via <code className="text-brand">ADJUDICATE_BACKEND</code> and isn't re-run live.)
+      </p>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        {ENGINES.map((e) => {
+          const avail = e.key === "auto" || status?.providers?.[e.key]?.available;
+          const active = selected === e.key;
+          return (
+            <button
+              key={e.key}
+              onClick={() => avail && choose(e.key)}
+              disabled={!avail || saving}
+              className={`text-left p-3 rounded-xl border transition-all ${active
+                ? "border-brand bg-brand/5 ring-1 ring-brand/30"
+                : avail
+                  ? "border-line/40 hover:border-brand/50 hover:bg-accent/30"
+                  : "border-line/30 opacity-50 cursor-not-allowed"}`}
+            >
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-sm font-semibold text-ink">{e.label}</span>
+                {active && <Check className="w-3.5 h-3.5 text-brand" />}
+              </div>
+              <p className="text-[11px] text-muted leading-snug">{e.desc}</p>
+              {e.key !== "auto" && (
+                <span className={`mt-1.5 inline-block text-[10px] font-mono px-1.5 py-0.5 rounded ${avail ? "text-low bg-low/10" : "text-muted bg-line/20"}`}>
+                  {avail ? "key configured" : "no key"}
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+      {status && (
+        <p className="text-[11px] text-muted/70 mt-3">
+          Resolved engine: <span className="font-mono text-ink">{status.resolved}</span>
+          {status.resolved === "score" && " — no LLM key found; live features show data-only output."}
+        </p>
+      )}
+    </div>
+  );
+}
 
 const DIMENSIONS = [
   { key: "frequency", label: "Frequency", desc: "How many consumers are affected (case volume)." },
@@ -81,6 +155,8 @@ export default function Scoring() {
         </p>
       </div>
 
+      <AnalysisEngineCard />
+
       <div className="grid grid-cols-12 gap-6">
         {/* Sliders */}
         <div className="col-span-12 lg:col-span-5 space-y-4">
@@ -140,9 +216,9 @@ export default function Scoring() {
         </div>
 
         {/* Live re-ranked queue */}
-        <div className="col-span-12 lg:col-span-7" style={{ height: "640px" }}>
+        <div className="col-span-12 lg:col-span-7 h-[520px] lg:h-[640px]">
           <Panel title="Live priority queue" subtitle="Re-ranked under the current weights · Δ vs default model" className="h-full">
-            <table className="w-full text-left border-collapse">
+            <table className="w-full min-w-[460px] text-left border-collapse">
               <thead className="sticky top-0 bg-white/90 backdrop-blur-xl z-10">
                 <tr className="text-xs uppercase tracking-wider text-muted">
                   <th className="font-semibold px-5 py-3 border-b border-line/30">Rank</th>

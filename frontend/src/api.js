@@ -35,3 +35,42 @@ export async function rescore(weights) {
   if (!res.ok) throw new Error(`Rescore failed ${res.status}`);
   return res.json();
 }
+
+async function postJSON(path, body) {
+  const res = await fetch(`${API_BASE}${path}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const detail = await res.json().catch(() => ({}));
+    throw new Error(detail.detail || `API error ${res.status}`);
+  }
+  return res.json();
+}
+
+// Item 4 — alert methodology reference.
+export function fetchMethodology() {
+  return getJSON("/api/methodology");
+}
+
+// Item 5 — live chart drill-down (real cases + best-effort web news).
+export function fetchDrilldown(date) {
+  return getJSON(`/api/drilldown?date=${encodeURIComponent(date)}`);
+}
+
+// Item 7 — analysis-engine selection.
+export function fetchProviders() {
+  return getJSON("/api/providers");
+}
+export function setAnalysisEngine(engine) {
+  return postJSON("/api/analysis-config", { engine });
+}
+
+// Item 6 — semi-automated supervisory actions (draft + simulated send).
+export function draftAction(cluster_id, action) {
+  return postJSON("/api/draft-action", { cluster_id, action });
+}
+export function sendAction(payload) {
+  return postJSON("/api/send-action", payload);
+}

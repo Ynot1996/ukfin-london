@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 import { Panel, SEVERITY_HEX } from "../ui.jsx";
+import { fetchDrilldown } from "../api.js";
 
 const TIMEFRAMES = [
   { label: "7D", days: 7 },
@@ -11,9 +12,10 @@ const TIMEFRAMES = [
 export default function TrendChart({ trend }) {
   const [selectedDays, setSelectedDays] = useState(30);
   const [selectedPoint, setSelectedPoint] = useState(null);
-  const [scraping, setScraping] = useState(false);
-  const [scrapingLogs, setScrapingLogs] = useState([]);
-  const [article, setArticle] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [logs, setLogs] = useState([]);
+  const [result, setResult] = useState(null);
+  const [error, setError] = useState(null);
 
   const filteredTrend = useMemo(() => {
     if (!trend) return [];
@@ -25,86 +27,40 @@ export default function TrendChart({ trend }) {
     const dataPoint = activePayload[0].payload;
     if (!dataPoint || !dataPoint.date) return;
 
+    const date = dataPoint.date;
     setSelectedPoint(dataPoint);
-    setScraping(true);
-    setArticle(null);
-    setScrapingLogs([]);
+    setLoading(true);
+    setResult(null);
+    setError(null);
+    setLogs([]);
 
-    const dateStr = dataPoint.date;
-    const logs = [
-      `[SYS] CONNECTING TO BBC NEWS ARCHIVE FEED...`,
-      `[SYS] BYPASSING ANTI-BOT ENCRYPTION SHIELD...`,
-      `[DOM] SCRAPING URL: https://www.bbc.co.uk/news/business/archive`,
-      `[DOM] EXTRACTING PARAGRAPHS & DATETIME FOR: ${dateStr}`,
-      `[NLP] RUNNING SENTIMENT ANALYSIS...`,
-      `[SYS] RESOLVED CORRELATION INDEX...`,
-      `[SYS] FETCH COMPLETE.`
+    // Cosmetic stream of analysis steps while the real request runs.
+    const steps = [
+      `[SYS] QUERYING CFPB RECORDS FOR ${date} ...`,
+      `[AGG] AGGREGATING CASES BY FIRM / ISSUE / CLUSTER ...`,
+      `[WEB] GROUNDED NEWS SEARCH VIA ANALYSIS ENGINE ...`,
+      `[NLP] SYNTHESISING DRIVERS & RESPONSE ...`,
     ];
-
-    let currentLogIndex = 0;
+    let i = 0;
     const interval = setInterval(() => {
-      if (currentLogIndex < logs.length) {
-        setScrapingLogs((prev) => [...prev, logs[currentLogIndex]]);
-        currentLogIndex++;
+      if (i < steps.length) {
+        setLogs((p) => [...p, steps[i]]);
+        i++;
       } else {
         clearInterval(interval);
-
-        const totalCases = (dataPoint.critical || 0) + (dataPoint.high || 0) + (dataPoint.medium || 0) + (dataPoint.low || 0);
-        // If total cases is high, it's a peak day
-        const isPeak = totalCases >= 5;
-
-        const newsArticles = [
-          {
-            headline: "FCA Launches Probe into Algorithmic Loan Rejections",
-            summary: "The Financial Conduct Authority has opened an inquiry into high-street lenders utilizing automated credit-scoring algorithms, following a sharp rise in consumer complaints about unfair exclusion.",
-            source: "BBC News · Business",
-            url: "https://handbook.fca.org.uk/handbook/prin2a",
-            time: "08:14 GMT",
-            isPeak: true
-          },
-          {
-            headline: "Fintech Firms Face Crackdown over Automated Offboarding",
-            summary: "New directives from the FCA target fintech apps utilizing automated offboarding procedures. Regulators warn that locking accounts without human oversight violates consumer protection codes.",
-            source: "BBC News · Technology",
-            url: "https://handbook.fca.org.uk/handbook/prin2a",
-            time: "11:32 GMT",
-            isPeak: true
-          },
-          {
-            headline: "Investigation: The Harms of Algorithmic Account Freezes",
-            summary: "Hundreds of consumers tell the BBC they were locked out of their primary bank accounts for weeks due to algorithmic fraud flags, with zero access to human review.",
-            source: "BBC News · Investigation",
-            url: "https://handbook.fca.org.uk/handbook/prin2a",
-            time: "06:45 GMT",
-            isPeak: true
-          },
-          {
-            headline: "Regulators Raise Alarms Over Systemic AI Trading Risks",
-            summary: "A new supervisory report raises alarms over automated market micro-structures. Regulators call for mandatory kill-switches and transparent decision-logging.",
-            source: "BBC News · Finance",
-            url: "https://handbook.fca.org.uk/handbook/prin2a",
-            time: "14:20 GMT",
-            isPeak: true
-          }
-        ];
-
-        if (isPeak) {
-          const index = Math.abs(new Date(dateStr).getDate()) % newsArticles.length;
-          setArticle(newsArticles[index]);
-        } else {
-          setArticle({
-            headline: "Financial Compliance Systems Operating Within Limits",
-            summary: "Major banking systems report steady transaction volumes today with no anomalies detected. Automated compliance filters operate within normal guidelines.",
-            source: "BBC News · Market Report",
-            url: "https://handbook.fca.org.uk/handbook/prin2a",
-            time: "18:00 GMT",
-            isPeak: false
-          });
-        }
-        setScraping(false);
       }
-    }, 150);
+    }, 180);
+
+    fetchDrilldown(date)
+      .then((r) => {
+        setResult(r);
+        setLogs((p) => [...p, `[SYS] ANALYSIS COMPLETE — ${r.total} CASE(S).`]);
+      })
+      .catch((e) => setError(e.message))
+      .finally(() => { clearInterval(interval); setLoading(false); });
   };
+
+  const closePanel = () => { setSelectedPoint(null); setResult(null); setError(null); setLoading(false); };
 
   return (
     <Panel
@@ -128,17 +84,16 @@ export default function TrendChart({ trend }) {
         </div>
       }
     >
-      <div className="flex h-full min-h-[300px]">
-        {/* Left Section: Chart */}
-        <div className="flex-1 p-4 h-full min-h-[280px] flex flex-col justify-between">
-          <ResponsiveContainer width="100%" height="88%">
+      {/* Stacks vertically on small screens, side-by-side on large. */}
+      <div className="flex flex-col lg:flex-row h-full min-h-[300px]">
+        {/* Chart */}
+        <div className="flex-1 p-4 min-h-[280px] flex flex-col justify-between">
+          <ResponsiveContainer width="100%" height="88%" minHeight={240}>
             <AreaChart
               data={filteredTrend}
               margin={{ top: 8, right: 12, left: -16, bottom: 0 }}
               onClick={(state) => {
-                if (state && state.activePayload) {
-                  handleChartClick(state.activePayload);
-                }
+                if (state && state.activePayload) handleChartClick(state.activePayload);
               }}
               className="cursor-pointer"
             >
@@ -151,120 +106,102 @@ export default function TrendChart({ trend }) {
                 ))}
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="#b8e1e040" vertical={false} />
-              <XAxis
-                dataKey="label"
-                tick={{ fontSize: 11, fill: "#61758a" }}
-                interval="preserveStartEnd"
-                tickLine={false}
-                axisLine={{ stroke: "#b8e1e0" }}
-              />
-              <YAxis
-                tick={{ fontSize: 11, fill: "#61758a" }}
-                tickLine={false}
-                axisLine={false}
-                allowDecimals={false}
-              />
+              <XAxis dataKey="label" tick={{ fontSize: 11, fill: "#61758a" }} interval="preserveStartEnd" tickLine={false} axisLine={{ stroke: "#b8e1e0" }} />
+              <YAxis tick={{ fontSize: 11, fill: "#61758a" }} tickLine={false} axisLine={false} allowDecimals={false} />
               <Tooltip
-                contentStyle={{
-                  fontSize: 13,
-                  borderRadius: 12,
-                  border: "1px solid #b8e1e0",
-                  backgroundColor: "rgba(255,255,255,0.95)",
-                  backdropFilter: "blur(12px)",
-                  color: "#384250",
-                  boxShadow: "0 8px 32px rgba(12, 92, 99, 0.1)",
-                }}
+                contentStyle={{ fontSize: 13, borderRadius: 12, border: "1px solid #b8e1e0", backgroundColor: "rgba(255,255,255,0.95)", backdropFilter: "blur(12px)", color: "#384250", boxShadow: "0 8px 32px rgba(12, 92, 99, 0.1)" }}
                 labelStyle={{ color: "#0c5c63", fontWeight: 600 }}
                 itemStyle={{ color: "#384250" }}
               />
               {["low", "medium", "high", "critical"].map((sev) => (
-                <Area
-                  key={sev}
-                  type="monotone"
-                  dataKey={sev}
-                  stackId="1"
-                  stroke={SEVERITY_HEX[sev.toUpperCase()]}
-                  fill={`url(#g-${sev.toUpperCase()})`}
-                  strokeWidth={1.5}
-                />
+                <Area key={sev} type="monotone" dataKey={sev} stackId="1" stroke={SEVERITY_HEX[sev.toUpperCase()]} fill={`url(#g-${sev.toUpperCase()})`} strokeWidth={1.5} />
               ))}
             </AreaChart>
           </ResponsiveContainer>
-          <div className="text-center text-[10px] text-muted/60 mb-1 font-mono tracking-wider select-none animate-pulse">
-            💡 CLICK ON ANY POINT ON THE CHART TO INITIATE LIVE CRAWLER FOR BBC NEWS CORRELATION
+          <div className="text-center text-[10px] text-muted/60 mb-1 font-mono tracking-wider select-none animate-pulse px-2">
+            💡 CLICK ANY POINT TO ANALYSE THAT DAY — REAL CASES + LIVE NEWS CORRELATION
           </div>
         </div>
 
-        {/* Right Section: Interactive HUD Scraper Terminal */}
+        {/* Drill-down panel */}
         {selectedPoint && (
-          <div className="w-80 border-l border-line/35 bg-bg/25 flex flex-col h-full overflow-hidden animate-fade-in">
-            {/* Header */}
+          <div className="w-full lg:w-96 border-t lg:border-t-0 lg:border-l border-line/35 bg-bg/25 flex flex-col max-h-[420px] lg:max-h-none overflow-hidden animate-fade-in">
             <div className="px-4 py-3 border-b border-line/20 bg-white/40 flex items-center justify-between flex-shrink-0">
               <span className="text-[10px] font-bold font-mono text-ink tracking-widest">
-                [NEWS_CRAWLER // {selectedPoint.label}]
+                [DAY_ANALYSIS // {selectedPoint.label}]
               </span>
-              <button
-                onClick={() => { setSelectedPoint(null); setArticle(null); setScraping(false); }}
-                className="text-muted hover:text-ink text-sm leading-none p-1 hover:bg-white/60 rounded-md transition-colors"
-              >
-                ×
-              </button>
+              <button onClick={closePanel} className="text-muted hover:text-ink text-sm leading-none p-1 hover:bg-white/60 rounded-md transition-colors">×</button>
             </div>
 
-            {/* Terminal Body */}
-            <div className="flex-1 p-4 overflow-auto no-scrollbar font-mono text-xs leading-relaxed space-y-4">
-              {/* Scraping Terminal logs */}
-              {scrapingLogs.length > 0 && (
-                <div className="space-y-1 bg-ink text-[10px] text-accent/80 p-3 rounded-lg border border-line/20 font-mono max-h-[145px] overflow-auto no-scrollbar shadow-inner">
-                  {scrapingLogs.map((log, idx) => {
-                    const isComplete = log.includes("COMPLETE");
-                    const isHeader = log.includes("CONNECTING");
-                    return (
-                      <div key={idx} className={isComplete ? "text-low font-bold" : isHeader ? "text-brand animate-pulse" : ""}>
-                        {log}
-                      </div>
-                    );
-                  })}
-                  {scraping && <div className="w-1.5 h-3 bg-brand animate-ping inline-block" />}
+            <div className="flex-1 p-4 overflow-auto no-scrollbar text-xs leading-relaxed space-y-4">
+              {/* Terminal log */}
+              {logs.length > 0 && (
+                <div className="space-y-1 bg-ink text-[10px] text-accent/80 p-3 rounded-lg border border-line/20 font-mono max-h-[120px] overflow-auto no-scrollbar shadow-inner">
+                  {logs.map((log, idx) => (
+                    <div key={idx} className={log.includes("COMPLETE") ? "text-low font-bold" : log.includes("QUERYING") ? "text-brand" : ""}>{log}</div>
+                  ))}
+                  {loading && <div className="w-1.5 h-3 bg-brand animate-ping inline-block" />}
                 </div>
               )}
 
-              {/* BBC Article Output */}
-              {article && (
-                <div className="space-y-3 animate-fade-in font-sans">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold tracking-widest text-brand uppercase">{article.source}</span>
-                    <span className="text-[9px] font-mono text-muted">{article.time}</span>
-                  </div>
-                  <h4 className="text-sm font-bold text-ink leading-snug font-heading hover:text-brand transition-colors">
-                    <a href={article.url} target="_blank" rel="noopener noreferrer">
-                      {article.headline}
-                    </a>
-                  </h4>
-                  <p className="text-xs text-muted leading-relaxed">
-                    {article.summary}
-                  </p>
+              {error && <div className="bg-critical/5 border border-critical/20 text-critical text-xs px-3 py-2 rounded-lg">{error}</div>}
 
-                  {article.isPeak ? (
-                    <div className="bg-critical/5 border border-critical/20 text-critical text-[10px] px-3 py-2 rounded-lg font-mono flex items-center gap-1.5 animate-pulse-glow">
-                      <span className="w-1.5 h-1.5 bg-critical rounded-full animate-ping" />
-                      ANOMALY CORRELATION CONFIRMED
-                    </div>
+              {result && (
+                <div className="space-y-4 animate-fade-in">
+                  {/* Top drivers */}
+                  {result.total > 0 ? (
+                    <>
+                      <Stat label="Flagged cases that day" value={result.total} />
+                      {result.top_companies?.length > 0 && (
+                        <Group title="Top firms">
+                          {result.top_companies.map((c) => (
+                            <Row key={c.name} name={c.name} count={c.count} />
+                          ))}
+                        </Group>
+                      )}
+                      {result.top_issues?.length > 0 && (
+                        <Group title="Top issues">
+                          {result.top_issues.map((c) => (
+                            <Row key={c.name} name={c.name} count={c.count} />
+                          ))}
+                        </Group>
+                      )}
+                    </>
                   ) : (
-                    <div className="bg-low/5 border border-low/20 text-low text-[10px] px-3 py-2 rounded-lg font-mono flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 bg-low rounded-full" />
-                      NORMAL COMPLIANCE BASELINE
+                    <p className="text-muted text-sm">{result.narrative}</p>
+                  )}
+
+                  {/* News synthesis */}
+                  {result.total > 0 && result.narrative && (
+                    <div className="glass-subtle p-3 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-bold tracking-widest text-brand uppercase">Analysis</span>
+                        <span className="text-[9px] font-mono text-muted">engine: {result.provider}</span>
+                      </div>
+                      <p className="text-xs text-muted leading-relaxed font-sans">{result.narrative}</p>
                     </div>
                   )}
 
-                  <a
-                    href="https://www.bbc.co.uk/news/business"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-[10px] font-bold text-brand hover:underline mt-2"
-                  >
-                    View on BBC News →
-                  </a>
+                  {result.news?.length > 0 && (
+                    <Group title="Sources">
+                      {result.news.map((n, i) => (
+                        <a key={i} href={n.url} target="_blank" rel="noopener noreferrer"
+                          className="block text-xs text-brand hover:underline truncate py-0.5">
+                          ↗ {n.headline} <span className="text-muted/60">· {n.source}</span>
+                        </a>
+                      ))}
+                    </Group>
+                  )}
+
+                  {result.suggested_actions?.length > 0 && (
+                    <Group title="Suggested actions">
+                      {result.suggested_actions.map((a, i) => (
+                        <p key={i} className="text-xs text-ink leading-relaxed flex gap-1.5 py-0.5">
+                          <span className="text-brand flex-shrink-0">→</span> {a}
+                        </p>
+                      ))}
+                    </Group>
+                  )}
                 </div>
               )}
             </div>
@@ -275,3 +212,29 @@ export default function TrendChart({ trend }) {
   );
 }
 
+function Stat({ label, value }) {
+  return (
+    <div className="glass-subtle p-3 flex items-center justify-between">
+      <span className="text-xs text-muted">{label}</span>
+      <span className="text-lg font-bold text-ink font-heading">{value}</span>
+    </div>
+  );
+}
+
+function Group({ title, children }) {
+  return (
+    <div>
+      <div className="text-[10px] font-bold tracking-widest text-muted uppercase mb-1.5">{title}</div>
+      <div className="space-y-0.5">{children}</div>
+    </div>
+  );
+}
+
+function Row({ name, count }) {
+  return (
+    <div className="flex items-center justify-between gap-2 text-xs">
+      <span className="text-ink truncate">{name}</span>
+      <span className="font-mono text-brand font-semibold flex-shrink-0">{count}</span>
+    </div>
+  );
+}
