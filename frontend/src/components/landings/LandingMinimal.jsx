@@ -4,7 +4,8 @@ import reguLensLogo from "../../ReguLensLogo.png";
 
 // Minimal but rich: a full-page, scroll-snapped story — each section locks to
 // the viewport and snaps to the next once you scroll past it.
-// Sections: hero → philosophy → how-it-works → metrics → partners.
+// On desktop, how-it-works + metrics + partners share one page; on mobile
+// they split into their own snap pages so nothing is cramped.
 
 const reveal = {
   hidden: { opacity: 0, y: 28 },
@@ -26,7 +27,6 @@ function Reveal({ children, className = "", delay = 0 }) {
   );
 }
 
-// Full-viewport snap section.
 function Section({ children, className = "" }) {
   return (
     <section className={`min-h-screen snap-start flex flex-col justify-center px-6 sm:px-10 ${className}`}>
@@ -50,6 +50,73 @@ const STATS = [
 
 const PARTNERS = ["Acme Retail Bank", "Sample Assurance Co.", "Examplar Capital", "Demo Payments", "Placeholder Trust", "Northgate Mutual"];
 
+// ---- Reusable content blocks ----
+
+function CapabilitiesBlock() {
+  return (
+    <div className="max-w-5xl mx-auto w-full">
+      <Reveal>
+        <p className="text-xs uppercase tracking-[0.25em] text-brand font-semibold mb-10">How it works</p>
+      </Reveal>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {CAPABILITIES.map((c, i) => (
+          <Reveal key={c.n} delay={i * 0.1}>
+            <div className="border-t-2 border-line/40 pt-5">
+              <span className="text-sm font-mono text-brand">{c.n}</span>
+              <h3 className="text-xl font-semibold font-heading mt-2 mb-2.5">{c.t}</h3>
+              <p className="text-sm text-muted leading-relaxed">{c.d}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Clean light metrics row (no dark band) — divided columns on desktop, 2×2 on mobile.
+function MetricsBlock() {
+  return (
+    <Reveal className="max-w-4xl mx-auto w-full">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {STATS.map((s) => (
+          <div key={s.l} className="rounded-2xl border border-line/40 bg-[#f2faf9] px-5 py-7 text-center">
+            <div className="text-3xl sm:text-4xl font-bold font-heading text-gradient">{s.v}</div>
+            <div className="text-xs sm:text-sm text-muted mt-1.5">{s.l}</div>
+          </div>
+        ))}
+      </div>
+    </Reveal>
+  );
+}
+
+function PartnersBlock() {
+  return (
+    <div className="w-full">
+      <Reveal className="text-center mb-8 px-6">
+        <p className="text-xs uppercase tracking-[0.25em] text-muted/60 font-semibold">Built for teams like</p>
+      </Reveal>
+      <div className="marquee-mask overflow-hidden">
+        <div className="flex w-max animate-marquee">
+          {[...PARTNERS, ...PARTNERS].map((n, i) => (
+            <span key={i} className="mx-8 text-lg sm:text-2xl font-semibold font-heading text-muted/50 whitespace-nowrap">
+              {n}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SiteFooter() {
+  return (
+    <footer className="px-6 sm:px-10 py-8 text-xs text-muted/60 border-t border-line/20 text-center">
+      © {new Date().getFullYear()} ReguLens — a new lens to view financial regulation. Demo environment.
+      <span className="block mt-1 text-muted/40">Partner names are fictional &amp; illustrative only.</span>
+    </footer>
+  );
+}
+
 export default function LandingMinimal({ onLaunch }) {
   return (
     <div className="h-screen overflow-y-auto snap-y snap-mandatory scroll-pt-[72px] bg-white text-ink font-sans">
@@ -69,7 +136,7 @@ export default function LandingMinimal({ onLaunch }) {
       </header>
 
       {/* Hero */}
-      <Section className="max-w-5xl mx-auto w-full -mt-[72px]">
+      <Section className="max-w-5xl mx-auto w-full -mt-[72px] relative">
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
           <div className="h-px w-12 bg-brand mb-8" />
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold font-heading tracking-tight leading-[1.06]">
@@ -110,67 +177,24 @@ export default function LandingMinimal({ onLaunch }) {
         </div>
       </Section>
 
-      {/* Capabilities */}
-      <Section className="max-w-5xl mx-auto w-full">
-        <Reveal>
-          <p className="text-xs uppercase tracking-[0.25em] text-brand font-semibold mb-12">How it works</p>
-        </Reveal>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
-          {CAPABILITIES.map((c, i) => (
-            <Reveal key={c.n} delay={i * 0.12}>
-              <div className="border-t-2 border-line/40 pt-5">
-                <span className="text-sm font-mono text-brand">{c.n}</span>
-                <h3 className="text-xl font-semibold font-heading mt-2 mb-2.5">{c.t}</h3>
-                <p className="text-sm text-muted leading-relaxed">{c.d}</p>
-              </div>
-            </Reveal>
-          ))}
+      {/* Desktop: how-it-works + metrics + partners on a single page */}
+      <section className="hidden md:flex min-h-screen snap-start flex-col">
+        <div className="flex-1 flex flex-col justify-center gap-16 px-10 py-20">
+          <CapabilitiesBlock />
+          <MetricsBlock />
+          <PartnersBlock />
         </div>
-      </Section>
+        <SiteFooter />
+      </section>
 
-      {/* Metrics band */}
-      <Section className="bg-ink text-white">
-        <div className="max-w-5xl mx-auto w-full grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-6 text-center md:text-left">
-          {STATS.map((s, i) => (
-            <Reveal key={s.l} delay={i * 0.1}>
-              <div>
-                <div className="text-4xl sm:text-5xl font-bold font-heading text-gradient">{s.v}</div>
-                <div className="text-xs sm:text-sm text-white/50 mt-2">{s.l}</div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
-
-      {/* Partners + footer */}
-      <section className="min-h-screen snap-start flex flex-col">
+      {/* Mobile: three separate snap pages */}
+      <Section className="md:hidden"><CapabilitiesBlock /></Section>
+      <Section className="md:hidden"><MetricsBlock /></Section>
+      <section className="md:hidden min-h-screen snap-start flex flex-col">
         <div className="flex-1 flex flex-col justify-center">
-          <Reveal className="text-center mb-12 px-6">
-            <p className="text-xs uppercase tracking-[0.25em] text-muted/60 font-semibold">Built for teams like</p>
-          </Reveal>
-          <div className="marquee-mask overflow-hidden">
-            <div className="flex w-max animate-marquee">
-              {[...PARTNERS, ...PARTNERS].map((n, i) => (
-                <span key={i} className="mx-8 text-lg sm:text-2xl font-semibold font-heading text-muted/50 whitespace-nowrap">
-                  {n}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div className="text-center mt-14 px-6">
-            <button
-              onClick={onLaunch}
-              className="group inline-flex items-center gap-2.5 text-base font-semibold text-white bg-gradient-to-r from-[#0c5c63] to-[#7accc9] hover:from-[#073a3f] hover:to-[#0c5c63] rounded-2xl px-8 py-4 transition-all shadow-md"
-            >
-              Enter the dashboard
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
-          </div>
+          <PartnersBlock />
         </div>
-        <footer className="px-6 sm:px-10 py-8 text-xs text-muted/60 border-t border-line/20 text-center">
-          © {new Date().getFullYear()} ReguLens — a new lens to view financial regulation. Demo environment.
-          <span className="block mt-1 text-muted/40">Partner names are fictional &amp; illustrative only.</span>
-        </footer>
+        <SiteFooter />
       </section>
     </div>
   );
