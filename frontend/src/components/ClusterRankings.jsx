@@ -7,10 +7,10 @@ export default function ClusterRankings({ clusters, selectedId, onSelect }) {
       subtitle={
         <div className="flex flex-col items-start gap-2 mt-1 text-xs text-muted">
           <div>ranked by weighted priority · freq × severity × growth × reg-relevance</div>
-          <div className="flex flex-wrap items-center gap-1.5">
-            <span>severity:</span>
+          <div className="flex flex-nowrap items-center gap-1.5 overflow-x-auto no-scrollbar w-full">
+            <span className="flex-shrink-0">severity:</span>
             {["CRITICAL", "HIGH", "MEDIUM", "LOW"].map((band) => (
-              <SeverityBadge key={band} band={band} />
+              <span key={band} className="flex-shrink-0"><SeverityBadge band={band} /></span>
             ))}
           </div>
         </div>
@@ -37,7 +37,7 @@ export default function ClusterRankings({ clusters, selectedId, onSelect }) {
                     <span className="text-xs text-muted">/ 7 days</span>
                     <SeverityBadge band={c.severity_band} />
                   </div>
-                  <p className="text-base font-semibold text-ink leading-snug truncate">{c.name}</p>
+                  <p className="text-base font-semibold text-ink leading-snug line-clamp-2">{c.name}</p>
                   <div className="flex flex-wrap items-center gap-2.5 text-sm text-muted mt-2">
                     <span className="font-medium text-brand whitespace-nowrap">{c.category}</span>
                     <span className="text-line">·</span>
