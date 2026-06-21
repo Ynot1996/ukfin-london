@@ -77,6 +77,7 @@ function CapabilitiesBlock() {
 function MetricsBlock() {
   return (
     <Reveal className="max-w-4xl mx-auto w-full">
+      <p className="text-xs uppercase tracking-[0.25em] text-brand font-semibold mb-6 text-center md:text-left">By the numbers</p>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {STATS.map((s) => (
           <div key={s.l} className="rounded-2xl border border-line/40 bg-[#f2faf9] px-5 py-7 text-center">
@@ -177,24 +178,24 @@ export default function LandingMinimal({ onLaunch }) {
         </div>
       </Section>
 
-      {/* Desktop: how-it-works + metrics + partners on a single page */}
-      <section className="hidden md:flex min-h-screen snap-start flex-col">
-        <div className="flex-1 flex flex-col justify-center gap-16 px-10 py-20">
-          <CapabilitiesBlock />
-          <MetricsBlock />
-          <PartnersBlock />
+      {/* Desktop: how-it-works + metrics flow from the top; partners + footer
+          anchored to the bottom (mt-auto) so the gap is breathing room, not a
+          hole mid-content. */}
+      <section className="hidden md:flex min-h-screen snap-start flex-col px-10 pt-24">
+        <CapabilitiesBlock />
+        <div className="mt-16"><MetricsBlock /></div>
+        <div className="mt-auto pt-16">
+          <div className="border-t border-line/20 pt-12"><PartnersBlock /></div>
+          <SiteFooter />
         </div>
-        <SiteFooter />
       </section>
 
-      {/* Mobile: three separate snap pages */}
+      {/* Mobile: how-it-works, then metrics as the closing page with the footer
+          anchored at the bottom. (No partner marquee on mobile — too sparse.) */}
       <Section className="md:hidden"><CapabilitiesBlock /></Section>
-      <Section className="md:hidden"><MetricsBlock /></Section>
-      <section className="md:hidden min-h-screen snap-start flex flex-col">
-        <div className="flex-1 flex flex-col justify-center">
-          <PartnersBlock />
-        </div>
-        <SiteFooter />
+      <section className="md:hidden min-h-screen snap-start flex flex-col px-6 pt-24">
+        <MetricsBlock />
+        <div className="mt-auto"><SiteFooter /></div>
       </section>
     </div>
   );
